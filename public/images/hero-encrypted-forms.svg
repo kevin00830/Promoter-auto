@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="706" height="549" viewBox="0 0 706 549">
+  <defs>
+    <filter id="Rectangle_5" x="0" y="0" width="706" height="549" filterUnits="userSpaceOnUse">
+      <feOffset dx="2" dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <filter id="Rectangle_145" x="31" y="23" width="204" height="195" filterUnits="userSpaceOnUse">
+      <feOffset dx="2" dy="2" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="1" result="blur-2"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur-2"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_694" data-name="Rectangle 694" width="616" height="157" transform="translate(0 -5)" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="hero-encrypted-forms" transform="translate(13520 15320)">
+    <g id="Group_2368" data-name="Group 2368" transform="translate(-13831 -15478)">
+      <g transform="matrix(1, 0, 0, 1, 311, 158)" filter="url(#Rectangle_5)">
+        <rect id="Rectangle_5-2" data-name="Rectangle 5" width="700" height="543" transform="translate(1 1)" fill="#f8f8f8"/>
+      </g>
+      <g id="Group_191" data-name="Group 191">
+        <text id="PGP_Encrypted_Response" data-name="PGP Encrypted Response" transform="translate(575 211)" fill="#313131" font-size="33" font-family="OpenSans-Bold, Open Sans" font-weight="700"><tspan x="0" y="0">Encrypted Response</tspan></text>
+        <text id="This_response_has_been_secured_by_PGP_Encryption." data-name="This response has been secured by Encryption." transform="translate(575 243)" fill="#313131" font-size="18" font-family="OpenSans-Semibold, Open Sans" font-weight="600"><tspan x="0" y="0">This response has been secured by Encryption.</tspan></text>
+        <text id="To_decrypt_the_response_you_need_to_provide_the_correct_key_including_passphrase._The_keys_are_only_saved_on_this_machine._If_you_need_to_access_the_d" data-name="To decrypt the response you need to provide the correct key including passphrase. The keys are only saved on this machine. If you need to access the d" transform="translate(575 284)" fill="#313131" font-size="14" font-family="OpenSans, Open Sans"><tspan x="0" y="0">To decrypt the response you need to provide the correct key </tspan><tspan x="0" y="19">including passphrase. The keys are only saved on this </tspan><tspan x="0" y="38">machine. If you need to access the data on other machines, </tspan><tspan x="0" y="57">you need to move the key as well.</tspan></text>
+      </g>
+      <g id="Group_189" data-name="Group 189">
+        <g transform="matrix(1, 0, 0, 1, 311, 158)" filter="url(#Rectangle_145)">
+          <rect id="Rectangle_145-2" data-name="Rectangle 145" width="198" height="189" rx="4" transform="translate(32 24)" fill="#fff"/>
+        </g>
+        <g id="Group_184" data-name="Group 184" transform="translate(10 -38)">
+          <g id="Group_182" data-name="Group 182" transform="translate(379 238.047)">
+            <path id="Path_34" data-name="Path 34" d="M187.51,84.217a10.129,10.129,0,0,1-10.129-10.129V42.616a22.357,22.357,0,0,0-44.715,0V74.088a10.129,10.129,0,1,1-20.258,0V42.616a42.616,42.616,0,1,1,85.232,0V74.088A10.129,10.129,0,0,1,187.51,84.217Z" transform="translate(-101.638)" fill="#c7cfe2"/>
+            <g id="Group_182-2" data-name="Group 182" transform="translate(10.769 51.526)" opacity="0.1">
+              <path id="Path_35" data-name="Path 35" d="M122.536,206.306a10.129,10.129,0,0,0,10.129-10.129V173.614H112.407v22.562a10.129,10.129,0,0,0,10.13,10.13Z" transform="translate(-112.407 -173.614)"/>
+              <path id="Path_36" data-name="Path 36" d="M331.333,173.614v22.562a10.129,10.129,0,1,0,20.258,0V173.614Z" transform="translate(-266.359 -173.614)"/>
+            </g>
+            <path id="Path_37" data-name="Path 37" d="M173.446,207.745H85.565a9.445,9.445,0,0,0-9.445,9.445V288.6a9.445,9.445,0,0,0,9.445,9.445h87.881a9.445,9.445,0,0,0,9.445-9.445V217.19A9.445,9.445,0,0,0,173.446,207.745Z" transform="translate(-76.12 -146.09)" fill="#ffd782"/>
+            <rect id="Rectangle_144" data-name="Rectangle 144" width="64.972" height="19.869" transform="translate(20.9 111.192)" opacity="0.1"/>
+          </g>
+        </g>
+      </g>
+      <g id="Group_192" data-name="Group 192">
+        <g id="Group_186" data-name="Group 186" transform="translate(1 -50)">
+          <text id="Private_Key" data-name="Private Key" transform="translate(342 458)" fill="#313131" font-size="16" font-family="OpenSans-Bold, Open Sans" font-weight="700"><tspan x="0" y="0">Private Key</tspan></text>
+          <g id="Rectangle_146" data-name="Rectangle 146" transform="translate(342 467)" fill="#fff" stroke="#c1c1c1" stroke-width="2">
+            <rect width="641" height="171" rx="4" stroke="none"/>
+            <rect x="1" y="1" width="639" height="169" rx="3" fill="none"/>
+          </g>
+          <g id="Scroll_Group_4" data-name="Scroll Group 4" transform="translate(354 478)" clip-path="url(#clip-path)" style="isolation: isolate">
+            <text id="_BEGIN_PGP_PRIVATE_KEY_BLOCK_lQdGBF_B1FUBEAC8dEvB9pUudpFpmc_bzwBL_9YCesLEPQ4vamSQ0jMwJkAkXqDD_1URSLyOts0yrs7KTxkbNKSe7OH6uc1HurlPUxWuFfdXUX7MQxh34" data-name="——BEGIN PGP PRIVATE KEY BLOCK——  lQdGBF+B1FUBEAC8dEvB9pUudpFpmc+bzwBL+9YCesLEPQ4vamSQ0jMwJkAkXqDD 1URSLyOts0yrs7KTxkbNKSe7OH6uc1HurlPUxWuFfdXUX7MQxh34" transform="translate(1 12)" fill="#313131" font-size="16" font-family="Courier"><tspan x="0" y="0">——BEGIN PGP PRIVATE KEY BLOCK——</tspan><tspan x="0" y="19"></tspan><tspan x="0" y="38">uNCeCBrXpbUsdVCgqt0hVO4XsyX4hulmUhZPbk9Q3hkWXUtEdqlIJFAW1RqkXk3h</tspan><tspan x="0" y="57">sHn2saDegyECqFkOyP6o9cud8Wg5x91Rv7N2lLrSZ9ENGaU5EsAhxroezsLQOP1w</tspan><tspan x="0" y="76">yxjkfQ0ICyGJ</tspan><tspan x="0" y="95"></tspan><tspan x="0" y="114">-----END PGP PRIVATE KEY BLOCK-----</tspan></text>
+          </g>
+        </g>
+        <g id="Group_185" data-name="Group 185" transform="translate(1 -42)">
+          <text id="Passphrase" transform="translate(342 667)" fill="#313131" font-size="16" font-family="OpenSans-Bold, Open Sans" font-weight="700"><tspan x="0" y="0">Passphrase</tspan></text>
+          <g id="Rectangle_147" data-name="Rectangle 147" transform="translate(342 676)" fill="#fff" stroke="#c1c1c1" stroke-width="2">
+            <rect width="351" height="38" rx="4" stroke="none"/>
+            <rect x="1" y="1" width="349" height="36" rx="3" fill="none"/>
+          </g>
+          <text id="_" data-name="*******************" transform="translate(351 702)" fill="#313131" font-size="19" font-family="Courier-Bold, Courier" font-weight="700"><tspan x="0" y="0">******************</tspan></text>
+        </g>
+        <g id="Group_190" data-name="Group 190">
+          <rect id="Rectangle_148" data-name="Rectangle 148" width="268" height="49" rx="4" transform="translate(716 628)" fill="#0086fb"/>
+          <text id="Decrypt_Response" data-name="Decrypt Response" transform="translate(763.179 660)" fill="#fff" font-size="20" font-family="OpenSans-Semibold, Open Sans" font-weight="600"><tspan x="0" y="0">Decrypt Response</tspan></text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
