@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Drawflow</title>
 </head>
 <body>
@@ -76,8 +77,6 @@
             <!-- <div class="btn-export" onclick="Swal.fire({ title: 'Export',
             html: '<pre><code>'+JSON.stringify(editor.export(), null,4)+'</code></pre>'
             })">Export</div> -->
-            <form method="POST" action="{{ route('groupadmin.addFlow') }}">
-                @csrf
                 <input id="keyword" type="hidden" name="keyword">
                 <input id="message" type="hidden" name="message">
                 <input id="delay" type="hidden" name="delay">
@@ -88,8 +87,7 @@
                     <i id="lock" class="fas fa-lock" onclick="editor.editor_mode='fixed'; changeMode('lock');"></i>
                     <i id="unlock" class="fas fa-lock-open" onclick="editor.editor_mode='edit'; changeMode('unlock');" style="display:none;"></i>
                 </div>
-                <button class="btn-export" onclick="console.log(JSON.stringify(editor.export().drawflow.Home.data[1].data)); addFlowData()" type="submit">Export</button>
-            </form>
+                <div class="btn-export" onclick="console.log(JSON.stringify(editor.export().drawflow.Home.data[1].data)); addFlowData()">Export</div>
             <div class="bar-zoom">
                 <i class="fas fa-search-minus" onclick="editor.zoom_out()"></i>
                 <i class="fas fa-search" onclick="editor.zoom_reset()"></i>
@@ -408,10 +406,19 @@
     }
 
     function addFlowData() {
-        document.getElementById('keyword').value = editor.export().drawflow.Home.data[1].data.keyword;
-        document.getElementById('message').value = editor.export().drawflow.Home.data[1].data.message;
-        document.getElementById('delay').value = editor.export().drawflow.Home.data[1].data.delay;
-        document.getElementById('imagepath').value = editor.export().drawflow.Home.data[1].data.imagepath;
+        $.ajax({
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            url: '{{ route('groupadmin.addFlow') }}',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(editor.export().drawflow),
+            success: function(data) {
+                alert('Data saved successfully.');
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
     }
 
 </script>
