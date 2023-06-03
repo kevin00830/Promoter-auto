@@ -1,102 +1,245 @@
-@extends('layouts.app', ['title' => 'Dashboard'])
-
-@section('content')
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" theme="wi5-v1">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Title -->
+    <title>{{ "DashBoard - Wi5" }} - {{ env('APP_NAME') }}</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>Drawflow</title>
+    <!-- Social tags -->
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="{{ asset('favicon.ico') }}" />
+
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
+    <!-- Theme Styles -->
+    <link href="{{ asset('plugins/global') }}/plugins.bundle.css?v=1.0.0" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('plugins') }}/prismjs/prismjs.bundle.css?v=1.0.0" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css') }}/style.bundle.css?v=1.0.0" rel="stylesheet" type="text/css" />
+
+    {{--    extern css files--}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jerosoler/Drawflow/dist/drawflow.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/jerosoler/Drawflow/dist/drawflow.min.js"></script>
+    <script src="dist/drawflow.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="src/drawflow.css" />
+    <link rel="stylesheet" type="text/css" href="docs/beautiful.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- Custom Style -->
+    <link href="{{ asset('css') }}/custom.css" rel="stylesheet" type="text/css" />
+
+    @stack('css')
+    <style>
+        .header-tabs .nav-item .nav-link {
+
+            padding:12px !important;
+            font-size:15px;
+
+        }
+    </style>
+    <script>var csrfToken = '{{ csrf_token() }}';</script>
+    <!-- /. -->
 </head>
-<body>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jerosoler/Drawflow/dist/drawflow.min.css">
-<script src="https://cdn.jsdelivr.net/gh/jerosoler/Drawflow/dist/drawflow.min.js"></script>
-<script src="dist/drawflow.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
-<link rel="stylesheet" type="text/css" href="src/drawflow.css" />
-<link rel="stylesheet" type="text/css" href="docs/beautiful.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
-<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-<script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
+<body id="kt_body" class="header-fixed header-mobile-fixed page-loading">
+<div id="loader" style="display: block;">
+    <div><img src="{{ asset('images/bars.svg') }}"><br><span></span></div>
+</div>
 
+<!-- Mobile Header -->
+@include('layouts.mobile_header')
+<!-- /. Mobile Header -->
 
-<header>
-    <h2>Drawflow</h2>
-    <div class="github-link"><a href="https://github.com/jerosoler/Drawflow" target="_blank"><i class="fab fa-github fa-3x"></i></a></div>
-</header>
-<div class="wrapper">
-    <div class="col">
-        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
-            <i class="fas fa-code"></i><span> Template</span>
-        </div>
-        <!-- <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="facebook">
-          <i class="fab fa-facebook"></i><span> Facebook</span>
-        </div>
-        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="slack">
-          <i class="fab fa-slack"></i><span> Slack recive message</span>
-        </div>
-        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="github">
-          <i class="fab fa-github"></i><span> Github Star</span>
-        </div>
-        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="telegram">
-          <i class="fab fa-telegram"></i><span> Telegram send message</span>
-        </div>
-        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="aws">
-          <i class="fab fa-aws"></i><span> AWS</span>
-        </div>
-        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="log">
-          <i class="fas fa-file-signature"></i><span> File Log</span>
-        </div>
-        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="google">
-          <i class="fab fa-google-drive"></i><span> Google Drive save</span>
-        </div>
-        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="email">
-          <i class="fas fa-at"></i><span> Email send</span>
-        </div>
-        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="multiple">
-          <i class="fas fa-code-branch"></i><span> Multiple inputs/outputs</span>
-        </div>
-        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="personalized">
-          <i class="fas fa-fill"></i><span> Personalized</span>
-        </div>
-        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="dbclick">
-          <i class="fas fa-mouse"></i><span> DBClick!</span>
-        </div> -->
-    </div>
-    <div class="col-right">
-        <div class="menu">
-            <ul>
-                <li onclick="editor.changeModule('Home'); changeModule(event);" class="selected">Home</li>
-            </ul>
-        </div>
-        <div id="drawflow" ondrop="drop(event)" ondragover="allowDrop(event)">
+<div class="d-flex flex-column flex-root">
+    <div class="d-flex flex-row flex-column-fluid page">
+        <!-- Wrapper -->
+        <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
 
-            <!-- <div class="btn-export" onclick="Swal.fire({ title: 'Export',
-            html: '<pre><code>'+JSON.stringify(editor.export(), null,4)+'</code></pre>'
-            })">Export</div> -->
-                <input id="keyword" type="hidden" name="keyword">
-                <input id="message" type="hidden" name="message">
-                <input id="delay" type="hidden" name="delay">
-                <input id="imagepath" type="hidden" name="imagepath">
+            <!-- Main content -->
+            <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
+                <div class="wrapper">
+                    <div class="col">
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
+                            <i class="fas fa-file-alt"></i><span> Generic Template</span>
+                        </div>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="audio">
+                            <i class="fas fa-volume-up"></i><span> Audio</span>
+                        </div>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
+                            <i class="fas fa-user"></i><span> Ask for Name</span>
+                        </div>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
+                            <i class="fas fa-calendar-alt"></i><span> Ask for dob (dd-mm)</span>
+                        </div>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
+                            <i class="fas fa-building"></i><span> Ask for Company</span>
+                        </div>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
+                            <i class="far fa-envelope"></i><span> Ask for Email</span>
+                        </div>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
+                            <i class="fas fa-map-marker-alt"></i><span> Ask for Street</span>
+                        </div>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
+                            <i class="fas fa-sort-numeric-up"></i><span> Ask for Number</span>
+                        </div>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
+                            <i class="fas fa-thumbtack"></i><span> Ask for Complement</span>
+                        </div>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
+                            <i class="fas fa-road"></i><span> Ask for District</span>
+                        </div>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
+                            <i class="fas fa-map-pin"></i><span> Ask for ZipCode</span>
+                        </div>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
+                            <i class="fas fa-city"></i><span> Ask for City</span>
+                        </div>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
+                            <i class="fas fa-globe-americas"></i><span> Ask for Country</span>
+                        </div>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
+                            <i class="fas fa-th-large"></i><span> Button Blocks</span>
+                        </div>
+                    </div>
+                    <div class="col-right">
+                        <div id="drawflow" ondrop="drop(event)" ondragover="allowDrop(event)">
 
-                <div class="btn-clear" onclick="editor.clearModuleSelected()">Clear</div>
-                <div class="btn-lock">
-                    <i id="lock" class="fas fa-lock" onclick="editor.editor_mode='fixed'; changeMode('lock');"></i>
-                    <i id="unlock" class="fas fa-lock-open" onclick="editor.editor_mode='edit'; changeMode('unlock');" style="display:none;"></i>
+                            <div class="btn-clear btn btn-primary btn-lg" onclick="editor.clearModuleSelected()">{{__('group.clear')}}</div>
+                            <input class="btn-import btn btn-primary btn-lg" type="button" name="importJson" onchange="importJson(this.value)" value="{{__('group.import')}}" data-toggle="modal" data-target="#importModal">
+                            <div class="btn-export btn btn-primary btn-lg" onclick="exportJson()" data-toggle="modal" data-target="#exportModal">{{__('group.export')}}</div>
+                            <div class="btn-save btn btn-primary btn-lg" onclick="addFlowData()" data-toggle="modal" data-target="#saveModal">{{__('group.save')}}</div>
+                            <div class="btn-lock">
+                                <i id="lock" class="fas fa-lock" onclick="editor.editor_mode='fixed'; changeMode('lock');"></i>
+                                <i id="unlock" class="fas fa-lock-open" onclick="editor.editor_mode='edit'; changeMode('unlock');" style="display:none;"></i>
+                            </div>
+                            <div class="bar-zoom">
+                                <i class="fas fa-search-minus" onclick="editor.zoom_out()"></i>
+                                <i class="fas fa-search" onclick="editor.zoom_reset()"></i>
+                                <i class="fas fa-search-plus" onclick="editor.zoom_in()"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="btn-export" onclick="console.log(JSON.stringify(editor.export().drawflow.Home.data[1].data)); addFlowData()">Export</div>
-            <div class="bar-zoom">
-                <i class="fas fa-search-minus" onclick="editor.zoom_out()"></i>
-                <i class="fas fa-search" onclick="editor.zoom_reset()"></i>
-                <i class="fas fa-search-plus" onclick="editor.zoom_in()"></i>
+
+                <!-- Save Buton Modal -->
+                <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">{{__('group.save_modal_msg')}}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Export Buton Modal -->
+                <div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">{{__('group.export_modal_msg')}}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Import Buton Modal -->
+                <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <!-- /. Main content -->
+
+            <!-- Footer -->
+            @include('layouts.footer')
+            <!-- /. Footer -->
         </div>
+        <!-- End Wrapper -->
     </div>
 </div>
 
+<!-- Quick User Side Panel -->
+@include('layouts.components.quick_user_panel')
+<!-- /. -->
+
+@auth()
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
+        @csrf
+    </form>
+@endauth
+
+<!-- Global Config(global config for global JS scripts) -->
+<script>var KTAppSettings = { "breakpoints": { "sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1200 }, "colors": { "theme": { "base": { "white": "#ffffff", "primary": "#6993FF", "secondary": "#E5EAEE", "success": "#1BC5BD", "info": "#8950FC", "warning": "#FFA800", "danger": "#F64E60", "light": "#F3F6F9", "dark": "#212121" }, "light": { "white": "#ffffff", "primary": "#E1E9FF", "secondary": "#ECF0F3", "success": "#C9F7F5", "info": "#EEE5FF", "warning": "#FFF4DE", "danger": "#FFE2E5", "light": "#F3F6F9", "dark": "#D6D6E0" }, "inverse": { "white": "#ffffff", "primary": "#ffffff", "secondary": "#212121", "success": "#ffffff", "info": "#ffffff", "warning": "#ffffff", "danger": "#ffffff", "light": "#464E5F", "dark": "#ffffff" } }, "gray": { "gray-100": "#F3F6F9", "gray-200": "#ECF0F3", "gray-300": "#E5EAEE", "gray-400": "#D6D6E0", "gray-500": "#B5B5C3", "gray-600": "#80808F", "gray-700": "#464E5F", "gray-800": "#1B283F", "gray-900": "#212121" } }, "font-family": "Poppins" };</script>
+<!-- Global Config -->
+<!-- Theme Bundle -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{{ asset('plugins/global') }}/plugins.bundle.js?v=1.0.0"></script>
+<script src="{{ asset('plugins') }}/prismjs/prismjs.bundle.js?v=1.0.0"></script>
+<script src="{{ asset('js') }}/scripts.bundle.js?v=1.0.0"></script>
+<script src="{{ asset('js/init.js') }}"></script>
+
+<script>
+    window.onload = function () {
+        // preloader fadeout onload
+        var preloader = document.querySelector('#loader');
+        if (preloader) {
+            document.querySelector('#loader').style.display = 'none';
+        }
+    }
+</script>
+
+{{--extern js files--}}
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script>
 
     var id = document.getElementById("drawflow");
@@ -104,8 +247,6 @@
     editor.reroute = true;
     editor.reroute_fix_curvature = true;
     editor.force_first_input = false;
-
-    // const dataToImport =  {"drawflow":{"Home":{"data":{"1":{"id":1,"name":"welcome","data":{},"class":"welcome","html":"\n    <div>\n      <div class=\"title-box\">👏 Welcome!!</div>\n      <div class=\"box\">\n        <p>Simple flow library <b>demo</b>\n        <a href=\"https://github.com/jerosoler/Drawflow\" target=\"_blank\">Drawflow</a> by <b>Jero Soler</b></p><br>\n\n        <p>Multiple input / outputs<br>\n           Data sync nodes<br>\n           Import / export<br>\n           Modules support<br>\n           Simple use<br>\n           Type: Fixed or Edit<br>\n           Events: view console<br>\n           Pure Javascript<br>\n        </p>\n        <br>\n        <p><b><u>Shortkeys:</u></b></p>\n        <p>🎹 <b>Delete</b> for remove selected<br>\n        💠 Mouse Left Click == Move<br>\n        ❌ Mouse Right == Delete Option<br>\n        🔍 Ctrl + Wheel == Zoom<br>\n        📱 Mobile support<br>\n        ...</p>\n      </div>\n    </div>\n    ", "typenode": false, "inputs":{},"outputs":{},"pos_x":50,"pos_y":50},"2":{"id":2,"name":"slack","data":{},"class":"slack","html":"\n          <div>\n            <div class=\"title-box\"><i class=\"fab fa-slack\"></i> Slack chat message</div>\n          </div>\n          ", "typenode": false, "inputs":{"input_1":{"connections":[{"node":"7","input":"output_1"}]}},"outputs":{},"pos_x":1028,"pos_y":87},"3":{"id":3,"name":"telegram","data":{"channel":"channel_2"},"class":"telegram","html":"\n          <div>\n            <div class=\"title-box\"><i class=\"fab fa-telegram-plane\"></i> Telegram bot</div>\n            <div class=\"box\">\n              <p>Send to telegram</p>\n              <p>select channel</p>\n              <select df-channel>\n                <option value=\"channel_1\">Channel 1</option>\n                <option value=\"channel_2\">Channel 2</option>\n                <option value=\"channel_3\">Channel 3</option>\n                <option value=\"channel_4\">Channel 4</option>\n              </select>\n            </div>\n          </div>\n          ", "typenode": false, "inputs":{"input_1":{"connections":[{"node":"7","input":"output_1"}]}},"outputs":{},"pos_x":1032,"pos_y":184},"4":{"id":4,"name":"email","data":{},"class":"email","html":"\n            <div>\n              <div class=\"title-box\"><i class=\"fas fa-at\"></i> Send Email </div>\n            </div>\n            ", "typenode": false, "inputs":{"input_1":{"connections":[{"node":"5","input":"output_1"}]}},"outputs":{},"pos_x":1033,"pos_y":439},"5":{"id":5,"name":"template","data":{"template":"Write your template"},"class":"template","html":"\n            <div>\n              <div class=\"title-box\"><i class=\"fas fa-code\"></i> Template</div>\n              <div class=\"box\">\n                Ger Vars\n                <textarea df-template></textarea>\n                Output template with vars\n              </div>\n            </div>\n            ", "typenode": false, "inputs":{"input_1":{"connections":[{"node":"6","input":"output_1"}]}},"outputs":{"output_1":{"connections":[{"node":"4","output":"input_1"},{"node":"11","output":"input_1"}]}},"pos_x":607,"pos_y":304},"6":{"id":6,"name":"github","data":{"name":"https://github.com/jerosoler/Drawflow"},"class":"github","html":"\n          <div>\n            <div class=\"title-box\"><i class=\"fab fa-github \"></i> Github Stars</div>\n            <div class=\"box\">\n              <p>Enter repository url</p>\n            <input type=\"text\" df-name>\n            </div>\n          </div>\n          ", "typenode": false, "inputs":{},"outputs":{"output_1":{"connections":[{"node":"5","output":"input_1"}]}},"pos_x":341,"pos_y":191},"7":{"id":7,"name":"facebook","data":{},"class":"facebook","html":"\n        <div>\n          <div class=\"title-box\"><i class=\"fab fa-facebook\"></i> Facebook Message</div>\n        </div>\n        ", "typenode": false, "inputs":{},"outputs":{"output_1":{"connections":[{"node":"2","output":"input_1"},{"node":"3","output":"input_1"},{"node":"11","output":"input_1"}]}},"pos_x":347,"pos_y":87},"11":{"id":11,"name":"log","data":{},"class":"log","html":"\n            <div>\n              <div class=\"title-box\"><i class=\"fas fa-file-signature\"></i> Save log file </div>\n            </div>\n            ", "typenode": false, "inputs":{"input_1":{"connections":[{"node":"5","input":"output_1"},{"node":"7","input":"output_1"}]}},"outputs":{},"pos_x":1031,"pos_y":363}}},"Other":{"data":{"8":{"id":8,"name":"personalized","data":{},"class":"personalized","html":"\n            <div>\n              Personalized\n            </div>\n            ", "typenode": false, "inputs":{"input_1":{"connections":[{"node":"12","input":"output_1"},{"node":"12","input":"output_2"},{"node":"12","input":"output_3"},{"node":"12","input":"output_4"}]}},"outputs":{"output_1":{"connections":[{"node":"9","output":"input_1"}]}},"pos_x":764,"pos_y":227},"9":{"id":9,"name":"dbclick","data":{"name":"Hello World!!"},"class":"dbclick","html":"\n            <div>\n            <div class=\"title-box\"><i class=\"fas fa-mouse\"></i> Db Click</div>\n              <div class=\"box dbclickbox\" ondblclick=\"showpopup(event)\">\n                Db Click here\n                <div class=\"modal\" style=\"display:none\">\n                  <div class=\"modal-content\">\n                    <span class=\"close\" onclick=\"closemodal(event)\">&times;</span>\n                    Change your variable {name} !\n                    <input type=\"text\" df-name>\n                  </div>\n\n                </div>\n              </div>\n            </div>\n            ", "typenode": false, "inputs":{"input_1":{"connections":[{"node":"8","input":"output_1"}]}},"outputs":{"output_1":{"connections":[{"node":"12","output":"input_2"}]}},"pos_x":209,"pos_y":38},"12":{"id":12,"name":"multiple","data":{},"class":"multiple","html":"\n            <div>\n              <div class=\"box\">\n                Multiple!\n              </div>\n            </div>\n            ", "typenode": false, "inputs":{"input_1":{"connections":[]},"input_2":{"connections":[{"node":"9","input":"output_1"}]},"input_3":{"connections":[]}},"outputs":{"output_1":{"connections":[{"node":"8","output":"input_1"}]},"output_2":{"connections":[{"node":"8","output":"input_1"}]},"output_3":{"connections":[{"node":"8","output":"input_1"}]},"output_4":{"connections":[{"node":"8","output":"input_1"}]}},"pos_x":179,"pos_y":272}}}}}
 
     const dataToImport = {"drawflow":{"Home":{"data":{}}}};
     editor.start();
@@ -214,6 +355,230 @@
 
 
         switch (name) {
+            case 'template':
+                var template = `
+            <div>
+              <div class="title-box"><i class="fas fa-code"></i>Generic Template</div>
+              <div class="box">
+                <input type="text" placeholder="keyword" df-keyword>
+                <textarea df-message></textarea>
+                <input type="number" min="1" max="20" placeholder="delay" df-delay>
+                <input type="file" df-imagepath>
+              </div>
+            </div>
+            `;
+                editor.addNode('template', 1, 1, pos_x, pos_y, 'template', {}, template );
+                break;
+
+            case 'audio':
+                var audio = `
+            <div>
+              <div class="title-box"><i class="fas fa-code"></i>Audio</div>
+              <div class="box">
+                <input type="text" placeholder="keyword" df-keyword>
+                <input type="number" min="1" max="20" placeholder="delay" df-delay>
+                <input type="file" df-imagepath>
+              </div>
+            </div>
+            `;
+                editor.addNode('audio', 1, 1, pos_x, pos_y, 'audio', {}, audio );
+                break;
+
+            case 'name':
+                var name = `
+            <div>
+              <div class="title-box"><i class="fas fa-code"></i>Ask for Name</div>
+              <div class="box">
+                <input type="text" placeholder="keyword" df-keyword>
+                <textarea df-message></textarea>
+                <input type="number" min="1" max="20" placeholder="delay" df-delay>
+                <input type="file" df-imagepath>
+              </div>
+            </div>
+            `;
+                editor.addNode('name', 1, 1, pos_x, pos_y, 'name', {}, name );
+                break;
+
+            case 'dob':
+                var dob = `
+            <div>
+              <div class="title-box"><i class="fas fa-code"></i>Ask for dob (dd-mm)</div>
+              <div class="box">
+                <input type="text" placeholder="keyword" df-keyword>
+                <textarea df-message></textarea>
+                <input type="number" min="1" max="20" placeholder="delay" df-delay>
+                <input type="file" df-imagepath>
+              </div>
+            </div>
+            `;
+                editor.addNode('dob', 1, 1, pos_x, pos_y, 'dob', {}, dob );
+                break;
+
+            case 'company':
+                var company = `
+            <div>
+              <div class="title-box"><i class="fas fa-code"></i>Ask for Company</div>
+              <div class="box">
+                <input type="text" placeholder="keyword" df-keyword>
+                <textarea df-message></textarea>
+                <input type="number" min="1" max="20" placeholder="delay" df-delay>
+                <input type="file" df-imagepath>
+              </div>
+            </div>
+            `;
+                editor.addNode('company', 1, 1, pos_x, pos_y, 'company', {}, company );
+                break;
+
+            case 'email':
+                var email = `
+            <div>
+              <div class="title-box"><i class="fas fa-code"></i>Ask for Email</div>
+              <div class="box">
+                <input type="text" placeholder="keyword" df-keyword>
+                <textarea df-message></textarea>
+                <input type="number" min="1" max="20" placeholder="delay" df-delay>
+                <input type="file" df-imagepath>
+              </div>
+            </div>
+            `;
+                editor.addNode('email', 1, 1, pos_x, pos_y, 'email', {}, email );
+                break;
+
+            case 'street':
+                var street = `
+            <div>
+              <div class="title-box"><i class="fas fa-code"></i>Ask for Street</div>
+              <div class="box">
+                <input type="text" placeholder="keyword" df-keyword>
+                <textarea df-message></textarea>
+                <input type="number" min="1" max="20" placeholder="delay" df-delay>
+                <input type="file" df-imagepath>
+              </div>
+            </div>
+            `;
+                editor.addNode('street', 1, 1, pos_x, pos_y, 'street', {}, street );
+                break;
+
+            case 'number':
+                var number = `
+            <div>
+              <div class="title-box"><i class="fas fa-code"></i>Ask for Number</div>
+              <div class="box">
+                <input type="text" placeholder="keyword" df-keyword>
+                <textarea df-message></textarea>
+                <input type="number" min="1" max="20" placeholder="delay" df-delay>
+                <input type="file" df-imagepath>
+              </div>
+            </div>
+            `;
+                editor.addNode('number', 1, 1, pos_x, pos_y, 'number', {}, number );
+                break;
+
+            case 'complement':
+                var complement = `
+            <div>
+              <div class="title-box"><i class="fas fa-code"></i>Ask for Complement</div>
+              <div class="box">
+                <input type="text" placeholder="keyword" df-keyword>
+                <textarea df-message></textarea>
+                <input type="number" min="1" max="20" placeholder="delay" df-delay>
+                <input type="file" df-imagepath>
+              </div>
+            </div>
+            `;
+                editor.addNode('complement', 1, 1, pos_x, pos_y, 'complement', {}, complement );
+                break;
+
+            case 'district':
+                var district = `
+            <div>
+              <div class="title-box"><i class="fas fa-code"></i>Ask for District</div>
+              <div class="box">
+                <input type="text" placeholder="keyword" df-keyword>
+                <textarea df-message></textarea>
+                <input type="number" min="1" max="20" placeholder="delay" df-delay>
+                <input type="file" df-imagepath>
+              </div>
+            </div>
+            `;
+                editor.addNode('district', 1, 1, pos_x, pos_y, 'district', {}, district );
+                break;
+
+            case 'zipcode':
+                var zipcode = `
+            <div>
+              <div class="title-box"><i class="fas fa-code"></i>Ask for ZipCode</div>
+              <div class="box">
+                <input type="text" placeholder="keyword" df-keyword>
+                <textarea df-message></textarea>
+                <input type="number" min="1" max="20" placeholder="delay" df-delay>
+                <input type="file" df-imagepath>
+              </div>
+            </div>
+            `;
+                editor.addNode('zipcode', 1, 1, pos_x, pos_y, 'zipcode', {}, zipcode );
+                break;
+
+            case 'city':
+                var city = `
+            <div>
+              <div class="title-box"><i class="fas fa-code"></i>Ask for City</div>
+              <div class="box">
+                <input type="text" placeholder="keyword" df-keyword>
+                <textarea df-message></textarea>
+                <input type="number" min="1" max="20" placeholder="delay" df-delay>
+                <input type="file" df-imagepath>
+              </div>
+            </div>
+            `;
+                editor.addNode('city', 1, 1, pos_x, pos_y, 'city', {}, city );
+                break;
+
+            case 'state':
+                var zipcode = `
+            <div>
+              <div class="title-box"><i class="fas fa-code"></i>Ask for State</div>
+              <div class="box">
+                <input type="text" placeholder="keyword" df-keyword>
+                <textarea df-message></textarea>
+                <input type="number" min="1" max="20" placeholder="delay" df-delay>
+                <input type="file" df-imagepath>
+              </div>
+            </div>
+            `;
+                editor.addNode('state', 1, 1, pos_x, pos_y, 'state', {}, state );
+                break;
+
+            case 'country':
+                var country = `
+            <div>
+              <div class="title-box"><i class="fas fa-code"></i>Ask for Country</div>
+              <div class="box">
+                <input type="text" placeholder="keyword" df-keyword>
+                <textarea df-message></textarea>
+                <input type="number" min="1" max="20" placeholder="delay" df-delay>
+                <input type="file" df-imagepath>
+              </div>
+            </div>
+            `;
+                editor.addNode('country', 1, 1, pos_x, pos_y, 'country', {}, country );
+                break;
+
+            case 'btnblock':
+                var btnblock = `
+            <div>
+              <div class="title-box"><i class="fas fa-code"></i>Button Block</div>
+              <div class="box">
+                <input type="text" placeholder="keyword" df-keyword>
+                <textarea df-message></textarea>
+                <input type="number" min="1" max="20" placeholder="delay" df-delay>
+                <input type="file" df-imagepath>
+              </div>
+            </div>
+            `;
+                editor.addNode('btnblock', 1, 1, pos_x, pos_y, 'btnblock', {}, btnblock );
+                break;
+
             case 'facebook':
                 var facebook = `
         <div>
@@ -297,21 +662,6 @@
             </div>
             `;
                 editor.addNode('email', 1, 0, pos_x, pos_y, 'email', {}, email );
-                break;
-
-            case 'template':
-                var template = `
-            <div>
-              <div class="title-box"><i class="fas fa-code"></i> Template</div>
-              <div class="box">
-                <input type="text" placeholder="keyword" df-keyword>
-                <textarea df-message></textarea>
-                <input type="number" min="1" max="20" placeholder="delay" df-delay>
-                <input type="file" df-imagepath>
-              </div>
-            </div>
-            `;
-                editor.addNode('template', 1, 1, pos_x, pos_y, 'template', {}, template );
                 break;
             case 'multiple':
                 var multiple = `
@@ -421,11 +771,66 @@
         });
     }
 
+    function exportJson() {
+        $.ajax({
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            url: '{{ route('groupadmin.exportJson') }}',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(editor.export()),
+            success: function(data) {
+                alert('Data exported successfully.');
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+
+    function extractFilename(path) {
+        if (path.substr(0, 12) == "C:\\fakepath\\")
+            return path.substr(12); // modern browser
+        var x;
+        x = path.lastIndexOf('/');
+        if (x >= 0) // Unix-based path
+            return path.substr(x+1);
+        x = path.lastIndexOf('\\');
+        if (x >= 0) // Windows-based path
+            return path.substr(x+1);
+        return path; // just the filename
+    }
+
+    function importJson(path) {
+        // var filepath = document.getElementById("importJson").value;
+        // console.log(filepath);
+        var filename = extractFilename(path);
+        console.log(filename);
+        $.ajax({
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            url: '{{ route('groupadmin.importJson') }}',
+            type: 'POST',
+            contentType: 'application/json',
+            data: filename,
+            success: function(res) {
+
+                // const dataToImport =  {"drawflow":{"Home":{"data":{"1":{"id":1,"name":"welcome","data":{},"class":"welcome","html":"\n    <div>\n      <div class=\"title-box\">👏 Welcome!!</div>\n      <div class=\"box\">\n        <p>Simple flow library <b>demo</b>\n        <a href=\"https://github.com/jerosoler/Drawflow\" target=\"_blank\">Drawflow</a> by <b>Jero Soler</b></p><br>\n\n        <p>Multiple input / outputs<br>\n           Data sync nodes<br>\n           Import / export<br>\n           Modules support<br>\n           Simple use<br>\n           Type: Fixed or Edit<br>\n           Events: view console<br>\n           Pure Javascript<br>\n        </p>\n        <br>\n        <p><b><u>Shortkeys:</u></b></p>\n        <p>🎹 <b>Delete</b> for remove selected<br>\n        💠 Mouse Left Click == Move<br>\n        ❌ Mouse Right == Delete Option<br>\n        🔍 Ctrl + Wheel == Zoom<br>\n        📱 Mobile support<br>\n        ...</p>\n      </div>\n    </div>\n    ", "typenode": false, "inputs":{},"outputs":{},"pos_x":50,"pos_y":50},"2":{"id":2,"name":"slack","data":{},"class":"slack","html":"\n          <div>\n            <div class=\"title-box\"><i class=\"fab fa-slack\"></i> Slack chat message</div>\n          </div>\n          ", "typenode": false, "inputs":{"input_1":{"connections":[{"node":"7","input":"output_1"}]}},"outputs":{},"pos_x":1028,"pos_y":87},"3":{"id":3,"name":"telegram","data":{"channel":"channel_2"},"class":"telegram","html":"\n          <div>\n            <div class=\"title-box\"><i class=\"fab fa-telegram-plane\"></i> Telegram bot</div>\n            <div class=\"box\">\n              <p>Send to telegram</p>\n              <p>select channel</p>\n              <select df-channel>\n                <option value=\"channel_1\">Channel 1</option>\n                <option value=\"channel_2\">Channel 2</option>\n                <option value=\"channel_3\">Channel 3</option>\n                <option value=\"channel_4\">Channel 4</option>\n              </select>\n            </div>\n          </div>\n          ", "typenode": false, "inputs":{"input_1":{"connections":[{"node":"7","input":"output_1"}]}},"outputs":{},"pos_x":1032,"pos_y":184},"4":{"id":4,"name":"email","data":{},"class":"email","html":"\n            <div>\n              <div class=\"title-box\"><i class=\"fas fa-at\"></i> Send Email </div>\n            </div>\n            ", "typenode": false, "inputs":{"input_1":{"connections":[{"node":"5","input":"output_1"}]}},"outputs":{},"pos_x":1033,"pos_y":439},"5":{"id":5,"name":"template","data":{"template":"Write your template"},"class":"template","html":"\n            <div>\n              <div class=\"title-box\"><i class=\"fas fa-code\"></i> Template</div>\n              <div class=\"box\">\n                Ger Vars\n                <textarea df-template></textarea>\n                Output template with vars\n              </div>\n            </div>\n            ", "typenode": false, "inputs":{"input_1":{"connections":[{"node":"6","input":"output_1"}]}},"outputs":{"output_1":{"connections":[{"node":"4","output":"input_1"},{"node":"11","output":"input_1"}]}},"pos_x":607,"pos_y":304},"6":{"id":6,"name":"github","data":{"name":"https://github.com/jerosoler/Drawflow"},"class":"github","html":"\n          <div>\n            <div class=\"title-box\"><i class=\"fab fa-github \"></i> Github Stars</div>\n            <div class=\"box\">\n              <p>Enter repository url</p>\n            <input type=\"text\" df-name>\n            </div>\n          </div>\n          ", "typenode": false, "inputs":{},"outputs":{"output_1":{"connections":[{"node":"5","output":"input_1"}]}},"pos_x":341,"pos_y":191},"7":{"id":7,"name":"facebook","data":{},"class":"facebook","html":"\n        <div>\n          <div class=\"title-box\"><i class=\"fab fa-facebook\"></i> Facebook Message</div>\n        </div>\n        ", "typenode": false, "inputs":{},"outputs":{"output_1":{"connections":[{"node":"2","output":"input_1"},{"node":"3","output":"input_1"},{"node":"11","output":"input_1"}]}},"pos_x":347,"pos_y":87},"11":{"id":11,"name":"log","data":{},"class":"log","html":"\n            <div>\n              <div class=\"title-box\"><i class=\"fas fa-file-signature\"></i> Save log file </div>\n            </div>\n            ", "typenode": false, "inputs":{"input_1":{"connections":[{"node":"5","input":"output_1"},{"node":"7","input":"output_1"}]}},"outputs":{},"pos_x":1031,"pos_y":363}}},"Other":{"data":{"8":{"id":8,"name":"personalized","data":{},"class":"personalized","html":"\n            <div>\n              Personalized\n            </div>\n            ", "typenode": false, "inputs":{"input_1":{"connections":[{"node":"12","input":"output_1"},{"node":"12","input":"output_2"},{"node":"12","input":"output_3"},{"node":"12","input":"output_4"}]}},"outputs":{"output_1":{"connections":[{"node":"9","output":"input_1"}]}},"pos_x":764,"pos_y":227},"9":{"id":9,"name":"dbclick","data":{"name":"Hello World!!"},"class":"dbclick","html":"\n            <div>\n            <div class=\"title-box\"><i class=\"fas fa-mouse\"></i> Db Click</div>\n              <div class=\"box dbclickbox\" ondblclick=\"showpopup(event)\">\n                Db Click here\n                <div class=\"modal\" style=\"display:none\">\n                  <div class=\"modal-content\">\n                    <span class=\"close\" onclick=\"closemodal(event)\">&times;</span>\n                    Change your variable {name} !\n                    <input type=\"text\" df-name>\n                  </div>\n\n                </div>\n              </div>\n            </div>\n            ", "typenode": false, "inputs":{"input_1":{"connections":[{"node":"8","input":"output_1"}]}},"outputs":{"output_1":{"connections":[{"node":"12","output":"input_2"}]}},"pos_x":209,"pos_y":38},"12":{"id":12,"name":"multiple","data":{},"class":"multiple","html":"\n            <div>\n              <div class=\"box\">\n                Multiple!\n              </div>\n            </div>\n            ", "typenode": false, "inputs":{"input_1":{"connections":[]},"input_2":{"connections":[{"node":"9","input":"output_1"}]},"input_3":{"connections":[]}},"outputs":{"output_1":{"connections":[{"node":"8","output":"input_1"}]},"output_2":{"connections":[{"node":"8","output":"input_1"}]},"output_3":{"connections":[{"node":"8","output":"input_1"}]},"output_4":{"connections":[{"node":"8","output":"input_1"}]}},"pos_x":179,"pos_y":272}}}}}
+
+                const dataToImport = res.importData;
+                // const dataToImport = {"drawflow":{"Home":{"data":{"1":{"id":1,"name":"welcome","data":{},"class":"welcome","html":"\n    <div>\n      <div class=\"title-box\">👏 Welcome!!</div>\n      <div class=\"box\">\n        <p>Simple flow library <b>demo</b>\n        <a href=\"https://github.com/jerosoler/Drawflow\" target=\"_blank\">Drawflow</a> by <b>Jero Soler</b></p><br>\n\n        <p>Multiple input / outputs<br>\n           Data sync nodes<br>\n           Import / export<br>\n           Modules support<br>\n           Simple use<br>\n           Type: Fixed or Edit<br>\n           Events: view console<br>\n           Pure Javascript<br>\n        </p>\n        <br>\n        <p><b><u>Shortkeys:</u></b></p>\n        <p>🎹 <b>Delete</b> for remove selected<br>\n        💠 Mouse Left Click == Move<br>\n        ❌ Mouse Right == Delete Option<br>\n        🔍 Ctrl + Wheel == Zoom<br>\n        📱 Mobile support<br>\n        ...</p>\n      </div>\n    </div>\n    ", "typenode": false, "inputs":{},"outputs":{},"pos_x":50,"pos_y":50},"2":{"id":2,"name":"slack","data":{},"class":"slack","html":"\n          <div>\n            <div class=\"title-box\"><i class=\"fab fa-slack\"></i> Slack chat message</div>\n          </div>\n          ", "typenode": false, "inputs":{"input_1":{"connections":[{"node":"7","input":"output_1"}]}},"outputs":{},"pos_x":1028,"pos_y":87},"3":{"id":3,"name":"telegram","data":{"channel":"channel_2"},"class":"telegram","html":"\n          <div>\n            <div class=\"title-box\"><i class=\"fab fa-telegram-plane\"></i> Telegram bot</div>\n            <div class=\"box\">\n              <p>Send to telegram</p>\n              <p>select channel</p>\n              <select df-channel>\n                <option value=\"channel_1\">Channel 1</option>\n                <option value=\"channel_2\">Channel 2</option>\n                <option value=\"channel_3\">Channel 3</option>\n                <option value=\"channel_4\">Channel 4</option>\n              </select>\n            </div>\n          </div>\n          ", "typenode": false, "inputs":{"input_1":{"connections":[{"node":"7","input":"output_1"}]}},"outputs":{},"pos_x":1032,"pos_y":184},"4":{"id":4,"name":"email","data":{},"class":"email","html":"\n            <div>\n              <div class=\"title-box\"><i class=\"fas fa-at\"></i> Send Email </div>\n            </div>\n            ", "typenode": false, "inputs":{"input_1":{"connections":[{"node":"5","input":"output_1"}]}},"outputs":{},"pos_x":1033,"pos_y":439},"5":{"id":5,"name":"template","data":{"template":"Write your template"},"class":"template","html":"\n            <div>\n              <div class=\"title-box\"><i class=\"fas fa-code\"></i> Template</div>\n              <div class=\"box\">\n                Ger Vars\n                <textarea df-template></textarea>\n                Output template with vars\n              </div>\n            </div>\n            ", "typenode": false, "inputs":{"input_1":{"connections":[{"node":"6","input":"output_1"}]}},"outputs":{"output_1":{"connections":[{"node":"4","output":"input_1"},{"node":"11","output":"input_1"}]}},"pos_x":607,"pos_y":304},"6":{"id":6,"name":"github","data":{"name":"https://github.com/jerosoler/Drawflow"},"class":"github","html":"\n          <div>\n            <div class=\"title-box\"><i class=\"fab fa-github \"></i> Github Stars</div>\n            <div class=\"box\">\n              <p>Enter repository url</p>\n            <input type=\"text\" df-name>\n            </div>\n          </div>\n          ", "typenode": false, "inputs":{},"outputs":{"output_1":{"connections":[{"node":"5","output":"input_1"}]}},"pos_x":341,"pos_y":191},"7":{"id":7,"name":"facebook","data":{},"class":"facebook","html":"\n        <div>\n          <div class=\"title-box\"><i class=\"fab fa-facebook\"></i> Facebook Message</div>\n        </div>\n        ", "typenode": false, "inputs":{},"outputs":{"output_1":{"connections":[{"node":"2","output":"input_1"},{"node":"3","output":"input_1"},{"node":"11","output":"input_1"}]}},"pos_x":347,"pos_y":87},"11":{"id":11,"name":"log","data":{},"class":"log","html":"\n            <div>\n              <div class=\"title-box\"><i class=\"fas fa-file-signature\"></i> Save log file </div>\n            </div>\n            ", "typenode": false, "inputs":{"input_1":{"connections":[{"node":"5","input":"output_1"},{"node":"7","input":"output_1"}]}},"outputs":{},"pos_x":1031,"pos_y":363}}},"Other":{"data":{"8":{"id":8,"name":"personalized","data":{},"class":"personalized","html":"\n            <div>\n              Personalized\n            </div>\n            ", "typenode": false, "inputs":{"input_1":{"connections":[{"node":"12","input":"output_1"},{"node":"12","input":"output_2"},{"node":"12","input":"output_3"},{"node":"12","input":"output_4"}]}},"outputs":{"output_1":{"connections":[{"node":"9","output":"input_1"}]}},"pos_x":764,"pos_y":227},"9":{"id":9,"name":"dbclick","data":{"name":"Hello World!!"},"class":"dbclick","html":"\n            <div>\n            <div class=\"title-box\"><i class=\"fas fa-mouse\"></i> Db Click</div>\n              <div class=\"box dbclickbox\" ondblclick=\"showpopup(event)\">\n                Db Click here\n                <div class=\"modal\" style=\"display:none\">\n                  <div class=\"modal-content\">\n                    <span class=\"close\" onclick=\"closemodal(event)\">&times;</span>\n                    Change your variable {name} !\n                    <input type=\"text\" df-name>\n                  </div>\n\n                </div>\n              </div>\n            </div>\n            ", "typenode": false, "inputs":{"input_1":{"connections":[{"node":"8","input":"output_1"}]}},"outputs":{"output_1":{"connections":[{"node":"12","output":"input_2"}]}},"pos_x":209,"pos_y":38},"12":{"id":12,"name":"multiple","data":{},"class":"multiple","html":"\n            <div>\n              <div class=\"box\">\n                Multiple!\n              </div>\n            </div>\n            ", "typenode": false, "inputs":{"input_1":{"connections":[]},"input_2":{"connections":[{"node":"9","input":"output_1"}]},"input_3":{"connections":[]}},"outputs":{"output_1":{"connections":[{"node":"8","output":"input_1"}]},"output_2":{"connections":[{"node":"8","output":"input_1"}]},"output_3":{"connections":[{"node":"8","output":"input_1"}]},"output_4":{"connections":[{"node":"8","output":"input_1"}]}},"pos_x":179,"pos_y":272}}}}};
+                console.log(dataToImport);
+                console.log(res.importData);
+                editor.start();
+                editor.import(dataToImport);
+
+                // editor.start();
+                // editor.import(JSON.stringify(res.importData));
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+            }
+        });
+    }
+
 </script>
 </body>
 </html>
-@endsection
-
-@push('js')
-
-@endpush

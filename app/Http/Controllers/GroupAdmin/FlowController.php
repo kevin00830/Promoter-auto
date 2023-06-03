@@ -5,17 +5,18 @@ namespace App\Http\Controllers\GroupAdmin;
 use App\Http\Controllers\Controller;
 use App\Models\Flow;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class FlowController extends Controller
 {
 
-    public function flowbuilder(Request $request) {
+    public function flowbuilder(Request $request)
+    {
         return view('groupadmin.dashboard.flowbuilder');
     }
 
-    public function addFlow(Request $request) {
-
+    public function addFlow(Request $request)
+    {
         $data = json_decode($request->getContent(), true);
         $group_id =auth()->user()->id;
 
@@ -53,5 +54,19 @@ class FlowController extends Controller
 
         // Return a response indicating success.
         return response()->json(['message' => 'Data saved successfully']);
+    }
+
+    public function exportJson(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+        File::put(public_path('flow-json/test.json'), json_encode($data));
+        return response()->json(['message' => 'Data exported successfully']);
+    }
+
+    public function importJson(Request $request)
+    {
+        $data = $request->getContent();
+        $importData = File::get(public_path('flow-json/'. $data));
+        return response()->json(['importData' => $importData]);
     }
 }

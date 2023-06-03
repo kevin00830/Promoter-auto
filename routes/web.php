@@ -102,11 +102,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('woocommerce/update-messages', [WoocommerceControler::class, 'updateMessages'])->name('groupadmin.woocommerce.update.messages');
     Route::delete('woocommerce/delete/{id}', [WoocommerceControler::class, 'delete'])->name('api-woocommerce.delete');
 
+    Route::post('reset_flow', [GroupAdminDashboardController::class, 'reset_flow'])->name('reset_flow');
 
     Route::post('submitdata', [GroupAdminDashboardController::class, 'submitdata'])->name('submitdata');
 
     Route::get('flowbuilder', [FlowController::class, 'flowbuilder'])->name('groupadmin.flowbuilder');
     Route::post('addFlow', [FlowController::class, 'addFlow'])->name('groupadmin.addFlow');
+    Route::post('exportJson', [FlowController::class, 'exportJson'])->name('groupadmin.exportJson');
+    Route::post('importJson', [FlowController::class, 'importJson'])->name('groupadmin.importJson');
 });
 
 

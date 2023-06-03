@@ -110,7 +110,7 @@ class DashboardController extends Controller
             ->whereIn('id', $groupIds)
             ->get();
 
-        $flows =  DB::connection('mysql2')->table('flows')->where('group_id',$group_id)->get();
+        $flows =  DB::connection('mysql2')->table('flows')->where('group_id',$group_id)->orderBy('flow_id')->get();
 
         // echo "<pre>";
         // print_r($flows);die;
@@ -381,7 +381,7 @@ class DashboardController extends Controller
 
             if($user_group) {
 
-                // Get all flows of 
+                // Get all flows of
                 $all_flows = DB::connection('mysql2')->table('flows')->where('group_id', $request->group_id )->orderBy('id', 'ASC')->get();
                 // dd($all_flows);
                 if ($user_group) {
@@ -417,6 +417,27 @@ class DashboardController extends Controller
 
     }
 
+
+    public function reset_flow(Request $request){
+        // dd($request->all());
+        if(!empty($request->flow_id)):
+            // $info_ = DB::connection('mysql2')->table('flows')->where('flow_id', $request->flow_id)->first();
+            // $group_id = $info_->group_id;
+            // $maxFlowId = DB::connection('mysql2')->table('flows')->where('group_id',$group_id)->max('flow_id');
+            $flow_id = DB::connection('mysql2')->table('flows')->where('id', $request->flow_id)
+                ->update(['next'=>'0','auto_flow'=> '']);
+
+            // $flow_id = DB::connection('mysql2')->table('flows')->where('flow_id', $request->flow_id)
+            // ->update(array('next' => '0','auto_flow' => ''));
+            // echo "Reset successfully + $maxFlowId";
+            return response()->json(array(
+                'success' => true,
+                'message' => 'Flow reset succesfully',
+            ));
+        endif;
+    }
+
+
     public function main_web_integeration(Request $request){
         // dd($request->all());
         $update = $request->is_update_main ?? '';
@@ -424,11 +445,13 @@ class DashboardController extends Controller
         $group_id = auth()->user()->id;
 
         if($group_id) {
-            $info_ = DB::connection('mysql2')->table('flows')->where('group_id', $group_id)->latest('flow_id')->first();
-            $info_2 = DB::connection('mysql2')->table('flows')->where('id', $request->flow_id)->latest('flow_id')->first();
+            $info_ = DB::connection('mysql2')->table('flows')->where('group_id', $group_id)->latest('flow_id')->first(); //last block
+            $info_2 = DB::connection('mysql2')->table('flows')->where('id', $request->flow_id)->latest('flow_id')->first(); //current block
             $next_flow_id = (!empty($info_->flow_id)) ? $info_->flow_id : 1;
         }
         if ($update == 1) {
+            // dd($request->all());
+            // dd($info_2);
             $u = array(
                 'group_id' => $group_id,
                 'keywords' => (!empty($request->keyword)) ? $request->keyword : '',
@@ -436,15 +459,21 @@ class DashboardController extends Controller
                 // 'is_name' => $request->name ?? '0',
                 // 'is_empress' => $request->empress  ?? '0',
                 // 'is_dob'=> $request->dob  ?? '0',
-                'next' => '0',
-                // 'next' => $request->actions ?? '0',
+                // 'next' => '0',
                 'tmp_type' => $request->tmp_type ?? '',
-                // 'auto_flow' => (isset($request->actions) && $request->auto_flow != null && $request->actions != 0) ? $request->auto_flow : "",
                 'main_msg' => $request->main_msg ?? '',
                 'delay' => $request->delay ?? 3
             );
 
-            // dd($u);
+            $currentParent = array(
+                'next' => '0',
+                'auto_flow' => "",
+            );
+
+            $newParent = array(
+                'next' => '1',
+                'auto_flow' => $info_2->flow_id,
+            );
 
             if($request->hasFile('flow_img')){
                 $file = $request->file('flow_img');
@@ -462,6 +491,9 @@ class DashboardController extends Controller
 
             $flow_id = DB::connection('mysql2')->table('flows')->where('id', $flow)->update($u);
 
+            DB::connection('mysql2')->table('flows')->where('flow_id', $info_2->auto_flow)->where('group_id', $group_id)->update($newParent);
+            DB::connection('mysql2')->table('flows')->where('auto_flow', $info_2->flow_id)->where('group_id', $group_id)->update($currentParent);
+
             if(!empty($next_flow_id)):
                 $flow_id = DB::connection('mysql2')->table('flows')->where('flow_id', $request->auto_flow)
                     ->update(array('next' => '1','auto_flow' => $info_2->flow_id));
@@ -476,14 +508,13 @@ class DashboardController extends Controller
                 // 'is_name' => $request->name ?? '0',
                 // 'is_empress' => $request->empress  ?? '0',
                 // 'is_dob'=> $request->dob  ?? '0',
-                'next' => $request->actions ?? '',
+                'next' => 0,
                 'tmp_type' => $request->tmp_type ?? '',
-                'auto_flow' => (isset($request->actions) && $request->auto_flow != null && $request->actions != 0) ? $request->auto_flow : "",
+                // 'auto_flow' => (isset($request->actions) && $request->auto_flow != null && $request->actions != 0) ? $request->auto_flow : "",
+                'auto_flow' => "",
                 'main_msg' => $request->main_msg ?? '',
                 'delay' => $request->delay ?? 3
             );
-
-            // dd($u);
 
             if($request->hasFile('flow_img')){
                 $file = $request->file('flow_img');
@@ -500,6 +531,7 @@ class DashboardController extends Controller
             }
 
             $flow_id = DB::connection('mysql2')->table('flows')->insertGetId($u);
+            DB::connection('mysql2')->table('flows')->where('flow_id', $request->auto_flow)->update(array('next' => '1','auto_flow' => $next_flow_id + 1));
         }
 
         return redirect()->back();
@@ -525,8 +557,9 @@ class DashboardController extends Controller
     }
 
     public function get_flow(Request $request, $flowId) {
-        $data =  array();
-        $data = DB::connection('mysql2')->table('flows')->where('id', $flowId)->first();
+        // $data[] =  array();
+        $data['current_data'] = DB::connection('mysql2')->table('flows')->where('id', $flowId)->first();
+        $data['parent_data'] = DB::connection('mysql2')->table('flows')->where('auto_flow', $data['current_data']->flow_id)->where('group_id', auth()->user()->id)->first();
 
         // $data->blocks = DB::connection('mysql2')->table('blocks')->where('flow_id', $flowId)->orderBy('id', 'ASC')->get();
 
