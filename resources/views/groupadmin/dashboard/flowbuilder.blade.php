@@ -69,55 +69,56 @@
                 <div class="wrapper">
                     <div class="col">
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
-                            <i class="fas fa-file-alt"></i><span> Generic Template</span>
+                            <i class="fas fa-file-alt" style="width: 10px;"></i><span>&nbsp; Generic Template</span>
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="audio">
-                            <i class="fas fa-volume-up"></i><span> Audio</span>
+                            <i class="fas fa-volume-up" style="width: 10px;"></i><span>&nbsp; Audio</span>
                         </div>
-                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
-                            <i class="fas fa-user"></i><span> Ask for Name</span>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="name">
+                            <i class="fas fa-user" style="width: 10px;"></i><span>&nbsp; Ask for Name</span>
                         </div>
-                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
-                            <i class="fas fa-calendar-alt"></i><span> Ask for dob (dd-mm)</span>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="dob">
+                            <i class="fas fa-calendar-alt" style="width: 10px;"></i><span>&nbsp; Ask for dob (dd-mm)</span>
                         </div>
-                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
-                            <i class="fas fa-building"></i><span> Ask for Company</span>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="company">
+                            <i class="fas fa-building" style="width: 10px;"></i><span>&nbsp; Ask for Company</span>
                         </div>
-                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
-                            <i class="far fa-envelope"></i><span> Ask for Email</span>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="email">
+                            <i class="far fa-envelope" style="width: 10px;"></i><span>&nbsp; Ask for Email</span>
                         </div>
-                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
-                            <i class="fas fa-map-marker-alt"></i><span> Ask for Street</span>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="street">
+                            <i class="fas fa-map-marker-alt" style="width: 10px;"></i><span>&nbsp; Ask for Street</span>
                         </div>
-                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
-                            <i class="fas fa-sort-numeric-up"></i><span> Ask for Number</span>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="number">
+                            <i class="fas fa-sort-numeric-up" style="width: 10px;"></i><span>&nbsp; Ask for Number</span>
                         </div>
-                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
-                            <i class="fas fa-thumbtack"></i><span> Ask for Complement</span>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="complement">
+                            <i class="fas fa-thumbtack" style="width: 10px;"></i><span>&nbsp; Ask for Complement</span>
                         </div>
-                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
-                            <i class="fas fa-road"></i><span> Ask for District</span>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="district">
+                            <i class="fas fa-road" style="width: 10px;"></i><span>&nbsp; Ask for District</span>
                         </div>
-                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
-                            <i class="fas fa-map-pin"></i><span> Ask for ZipCode</span>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="zipcode">
+                            <i class="fas fa-map-pin" style="width: 10px;"></i><span>&nbsp; Ask for ZipCode</span>
                         </div>
-                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
-                            <i class="fas fa-city"></i><span> Ask for City</span>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="city">
+                            <i class="fas fa-city" style="width: 10px;"></i><span>&nbsp; Ask for City</span>
                         </div>
-                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
-                            <i class="fas fa-globe-americas"></i><span> Ask for Country</span>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="country">
+                            <i class="fas fa-globe-americas" style="width: 10px;"></i><span>&nbsp; Ask for Country</span>
                         </div>
-                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
-                            <i class="fas fa-th-large"></i><span> Button Blocks</span>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="genricinput">
+                            <i class="fas fa-globe-americas" style="width: 10px;"></i><span>&nbsp; Generic Input</span>
                         </div>
                     </div>
                     <div class="col-right">
-                        <div id="drawflow" ondrop="drop(event)" ondragover="allowDrop(event)">
 
-                            <div class="btn-clear btn btn-primary btn-lg" onclick="editor.clearModuleSelected()">{{__('group.clear')}}</div>
-                            <input class="btn-import btn btn-primary btn-lg" type="button" name="importJson" onchange="importJson(this.value)" value="{{__('group.import')}}" data-toggle="modal" data-target="#importModal">
-                            <div class="btn-export btn btn-primary btn-lg" onclick="exportJson()" data-toggle="modal" data-target="#exportModal">{{__('group.export')}}</div>
-                            <div class="btn-save btn btn-primary btn-lg" onclick="addFlowData()" data-toggle="modal" data-target="#saveModal">{{__('group.save')}}</div>
+                        <div class="btn-clear btn btn-primary btn-lg" onclick="editor.clearModuleSelected()">{{__('group.clear')}}</div>
+                        <input class="btn-import btn btn-primary btn-lg" type="button" name="importJson" onchange="importJson(this.value)" value="{{__('group.import')}}" data-toggle="modal" data-target="#importModal">
+                        <div class="btn-export btn btn-primary btn-lg" onclick="exportJson()" data-toggle="modal" data-target="#exportModal">{{__('group.export')}}</div>
+                        <div class="btn-save btn btn-primary btn-lg" data-toggle="modal" data-target="#saveModal">{{__('group.save')}}</div>
+
+                        <div id="drawflow" ondrop="drop(event)" ondragover="allowDrop(event)">
                             <div class="btn-lock">
                                 <i id="lock" class="fas fa-lock" onclick="editor.editor_mode='fixed'; changeMode('lock');"></i>
                                 <i id="unlock" class="fas fa-lock-open" onclick="editor.editor_mode='edit'; changeMode('unlock');" style="display:none;"></i>
@@ -141,12 +142,9 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                ...
-                            </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-primary" onclick="addFlowData()">{{__('group.save')}}</button>
                             </div>
                         </div>
                     </div>
@@ -358,11 +356,11 @@
             case 'template':
                 var template = `
             <div>
-              <div class="title-box"><i class="fas fa-code"></i>Generic Template</div>
+              <div class="title-box">Generic Template</div>
               <div class="box">
-                <input type="text" placeholder="keyword" df-keyword>
+                <input id="keyword" type="text" placeholder="keyword" df-keyword required>
                 <textarea df-message></textarea>
-                <input type="number" min="1" max="20" placeholder="delay" df-delay>
+                <input id="delay" type="number" min="1" max="20" placeholder="delay" df-delay>
                 <input type="file" df-imagepath>
               </div>
             </div>
@@ -373,11 +371,10 @@
             case 'audio':
                 var audio = `
             <div>
-              <div class="title-box"><i class="fas fa-code"></i>Audio</div>
+              <div class="title-box">Audio</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <input type="number" min="1" max="20" placeholder="delay" df-delay>
-                <input type="file" df-imagepath>
               </div>
             </div>
             `;
@@ -387,12 +384,11 @@
             case 'name':
                 var name = `
             <div>
-              <div class="title-box"><i class="fas fa-code"></i>Ask for Name</div>
+              <div class="title-box">Ask for Name</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
                 <input type="number" min="1" max="20" placeholder="delay" df-delay>
-                <input type="file" df-imagepath>
               </div>
             </div>
             `;
@@ -402,12 +398,11 @@
             case 'dob':
                 var dob = `
             <div>
-              <div class="title-box"><i class="fas fa-code"></i>Ask for dob (dd-mm)</div>
+              <div class="title-box">Ask for dob (dd-mm)</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
                 <input type="number" min="1" max="20" placeholder="delay" df-delay>
-                <input type="file" df-imagepath>
               </div>
             </div>
             `;
@@ -417,12 +412,11 @@
             case 'company':
                 var company = `
             <div>
-              <div class="title-box"><i class="fas fa-code"></i>Ask for Company</div>
+              <div class="title-box">Ask for Company</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
                 <input type="number" min="1" max="20" placeholder="delay" df-delay>
-                <input type="file" df-imagepath>
               </div>
             </div>
             `;
@@ -432,12 +426,11 @@
             case 'email':
                 var email = `
             <div>
-              <div class="title-box"><i class="fas fa-code"></i>Ask for Email</div>
+              <div class="title-box">Ask for Email</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
                 <input type="number" min="1" max="20" placeholder="delay" df-delay>
-                <input type="file" df-imagepath>
               </div>
             </div>
             `;
@@ -447,12 +440,11 @@
             case 'street':
                 var street = `
             <div>
-              <div class="title-box"><i class="fas fa-code"></i>Ask for Street</div>
+              <div class="title-box">Ask for Street</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
                 <input type="number" min="1" max="20" placeholder="delay" df-delay>
-                <input type="file" df-imagepath>
               </div>
             </div>
             `;
@@ -462,12 +454,11 @@
             case 'number':
                 var number = `
             <div>
-              <div class="title-box"><i class="fas fa-code"></i>Ask for Number</div>
+              <div class="title-box">Ask for Number</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
                 <input type="number" min="1" max="20" placeholder="delay" df-delay>
-                <input type="file" df-imagepath>
               </div>
             </div>
             `;
@@ -477,12 +468,11 @@
             case 'complement':
                 var complement = `
             <div>
-              <div class="title-box"><i class="fas fa-code"></i>Ask for Complement</div>
+              <div class="title-box">Ask for Complement</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
                 <input type="number" min="1" max="20" placeholder="delay" df-delay>
-                <input type="file" df-imagepath>
               </div>
             </div>
             `;
@@ -492,12 +482,11 @@
             case 'district':
                 var district = `
             <div>
-              <div class="title-box"><i class="fas fa-code"></i>Ask for District</div>
+              <div class="title-box">Ask for District</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
                 <input type="number" min="1" max="20" placeholder="delay" df-delay>
-                <input type="file" df-imagepath>
               </div>
             </div>
             `;
@@ -507,12 +496,11 @@
             case 'zipcode':
                 var zipcode = `
             <div>
-              <div class="title-box"><i class="fas fa-code"></i>Ask for ZipCode</div>
+              <div class="title-box">Ask for ZipCode</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
                 <input type="number" min="1" max="20" placeholder="delay" df-delay>
-                <input type="file" df-imagepath>
               </div>
             </div>
             `;
@@ -522,12 +510,11 @@
             case 'city':
                 var city = `
             <div>
-              <div class="title-box"><i class="fas fa-code"></i>Ask for City</div>
+              <div class="title-box">Ask for City</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
                 <input type="number" min="1" max="20" placeholder="delay" df-delay>
-                <input type="file" df-imagepath>
               </div>
             </div>
             `;
@@ -537,12 +524,11 @@
             case 'state':
                 var zipcode = `
             <div>
-              <div class="title-box"><i class="fas fa-code"></i>Ask for State</div>
+              <div class="title-box">Ask for State</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
                 <input type="number" min="1" max="20" placeholder="delay" df-delay>
-                <input type="file" df-imagepath>
               </div>
             </div>
             `;
@@ -552,31 +538,30 @@
             case 'country':
                 var country = `
             <div>
-              <div class="title-box"><i class="fas fa-code"></i>Ask for Country</div>
+              <div class="title-box">Ask for Country</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
                 <input type="number" min="1" max="20" placeholder="delay" df-delay>
-                <input type="file" df-imagepath>
               </div>
             </div>
             `;
                 editor.addNode('country', 1, 1, pos_x, pos_y, 'country', {}, country );
                 break;
 
-            case 'btnblock':
-                var btnblock = `
+            case 'genricinput':
+                var genricInput = `
             <div>
-              <div class="title-box"><i class="fas fa-code"></i>Button Block</div>
+              <div class="title-box">Generic Input</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
+                <input type="text" placeholder="Field name" df-fieldname>
                 <textarea df-message></textarea>
                 <input type="number" min="1" max="20" placeholder="delay" df-delay>
-                <input type="file" df-imagepath>
               </div>
             </div>
             `;
-                editor.addNode('btnblock', 1, 1, pos_x, pos_y, 'btnblock', {}, btnblock );
+                editor.addNode('genricInput', 1, 1, pos_x, pos_y, 'genricInput', {}, genricInput );
                 break;
 
             case 'facebook':
@@ -756,6 +741,13 @@
     }
 
     function addFlowData() {
+        if($('#keyword').val() == "") {
+            alert("Please enter Keyword in the form, This is required");
+            return;
+        } else if ($('#delay').val() > 20) {
+            alert("Delay should be lower than 20");
+            return;
+        }
         $.ajax({
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             url: '{{ route('groupadmin.addFlow') }}',
@@ -763,7 +755,7 @@
             contentType: 'application/json',
             data: JSON.stringify(editor.export().drawflow),
             success: function(data) {
-                alert('Data saved successfully.');
+                $('#saveModal').modal('hide');
             },
             error: function(xhr, status, error) {
                 console.error('Error:', error);

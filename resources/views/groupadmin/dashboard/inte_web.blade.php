@@ -352,6 +352,7 @@
                                                     <option value="2"> {{__('group.audio')}}</option>
                                                     <option value="ask">{{__('group.ask')}}</option>
                                                     <option value="1000"> {{__('group.button_blocks')}}</option>
+                                                    <option value="100"> {{__('group.generic_input')}}</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -387,7 +388,12 @@
                                             <div class="col-md-6" id="messagE_box_demo" style="padding-bottom:0px !important">
 
                                             </div>
-
+                                            <div class="col-md-6" id="fieldname">
+                                                <label style="font-weight: 600;font-size: 18px;margin-bottom: 5px;">{{__('group.fieldname')}}</label>
+                                                <input type="text" class="form-control" id="fieldname-input-main" name="fieldname"/>
+                                            </div>
+                                            <div class="col-md-6" id="fieldname_demo">
+                                            </div>
                                             <div class="col-md-6" id="messagE_box">
                                                 <label style="font-weight: 600;font-size: 18px;margin-bottom: 5px;">{{__('group.message')}} </label>
                                                 <textarea rows="4" class="form-control sms_body_web" id="reply-input-main" name="msg"></textarea>
@@ -636,6 +642,8 @@
                 $('.askbox').hide();
                 function change_letoption(val){
                     if(val === '2'){
+                        $('#fieldname').hide();
+                        $('#fieldname_demo').hide();
                         $('.askbox').hide();
                         $('#messagE_box').hide();
                         $('#messagE_box_demo').hide();
@@ -643,34 +651,46 @@
                         $('.buttonblock').hide();
                     } else if(val === '3' || val === '4' || val === '5' || val === '6' || val === '7' || val === '8' || val === '9' || val === '10' || val === '11' || val === '12' || val === '13' || val === '14'){
                         $('#flow_img').hide();
+                        $('#fieldname').hide();
+                        $('#fieldname_demo').hide();
                         $('#messagE_box').show();
                         $('#messagE_box_demo').show();
                         $('.buttonblock').hide();
                     }else if(val === 'Select'){
                         $('.askbox').hide();
+                        $('#fieldname').hide();
+                        $('#fieldname_demo').hide();
                         $('#flow_img').hide();
                         $('#messagE_box').hide();
                         $('#messagE_box_demo').hide();
                         $('.hideall').hide();
                     }else if(val === '100'){
                         $('.askbox').hide();
-                        $('.buttonblock').show();
+                        $('.buttonblock').hide();
                         $('#messagE_box').show();
                         $('#messagE_box_demo').show();
                         $('#flow_img').hide();
+                        $('#fieldname').show();
+                        $('#fieldname_demo').show();
                     }else if(val === 'ask'){
+                        $('#fieldname').hide();
+                        $('#fieldname_demo').hide();
                         $('#tmp_typebox').attr('name', 'tmp_type');
                         $('.buttonblock').hide();
                         $('.askbox').show();
                     }
 
                     else if(val === '1'){
+                        $('#fieldname').hide();
+                        $('#fieldname_demo').hide();
                         $('#flow_img').show();
                         $('.askbox').hide();
                         $('#messagE_box').show();
                         $('#messagE_box_demo').show();
                         $('.buttonblock').hide();
                     }else {
+                        $('#fieldname').hide();
+                        $('#fieldname_demo').hide();
                         $('#messagE_box').show();
                         $('#messagE_box_demo').show();
                         $('#flow_img').show();
@@ -734,8 +754,8 @@
                     })
                     $(document).on('click', '.edit-main-btn', function() {
 
-                        $('#recetbtn').css("display", "block"); // 8467
                         $('.buttonblock').css("display", "none"); // 8467
+                        $('#recetbtn').css("display", "block"); // 8467
 
                         var flowId = $(this).data('id');
                         var autoFlow = $(this).data('fid');
@@ -764,12 +784,14 @@
                                 $('.col-md-12').append(newInput1, newInput2);
                                 // Populate the form inputs inside the modal with the response data
                                 $('#keywords-input-main').val(response['current_data'].keywords);
+                                $('#fieldname-input-main').val(response['current_data'].fieldname);
                                 $('#reply-input-main').data("emojioneArea").setText(response['current_data'].reply);
                                 // $('#reply-input-main-msg').data("emojioneArea").setText(response.main_msg);
                                 $('#reply-input-main-msg').val(response['current_data'].main_msg);
 
                                 var tmp_type = response['current_data'].tmp_type;
                                 console.log(tmp_type);
+
                                 if(tmp_type === '3' || tmp_type === '4' || tmp_type === '5' || tmp_type === '6' || tmp_type === '7' || tmp_type === '8' || tmp_type === '9' || tmp_type === '10' || tmp_type === '11' || tmp_type === '12' || tmp_type === '13' || tmp_type === '14') {
                                     $(".tmp_type_select").val("ask").trigger("change");
                                 } else {
@@ -781,12 +803,9 @@
                                 //         $(this).prop("selected", true);
                                 //     }
                                 // });
-                                $(".auto_flow_select").val(response['parent_data']['flow_id']).trigger("change");
-                                // $("select[name='auto_flow'] option").each(function() {
-                                //     if ($(this).val() == response.auto_flow) {
-                                //         $(this).prop("selected", true);
-                                //     }
-                                // });
+                                if(!(response['parent_data']) == '') {
+                                    $(".auto_flow_select").val(response['parent_data']['flow_id']).trigger("change");
+                                }
 
                                 if(response['current_data'].next === '0'){
                                     $('#actions1').prop('checked', true);
@@ -821,6 +840,10 @@
                                     checkbox3.prop('checked', false);
                                 }
                                 $('.buttonblock').css("display", "none"); // 8467
+                                if(tmp_type === '100') {
+                                    $('#fieldname').css('display', 'block');
+                                    $('#fieldname_demo').css('display', 'block');
+                                }
 
                                 // var selectTag = document.getElementById('appearNext1');
 

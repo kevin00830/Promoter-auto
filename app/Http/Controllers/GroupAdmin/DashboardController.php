@@ -439,7 +439,6 @@ class DashboardController extends Controller
 
 
     public function main_web_integeration(Request $request){
-        // dd($request->all());
         $update = $request->is_update_main ?? '';
         $flow = $request->flow_id ?? '';
         $group_id = auth()->user()->id;
@@ -450,16 +449,11 @@ class DashboardController extends Controller
             $next_flow_id = (!empty($info_->flow_id)) ? $info_->flow_id : 1;
         }
         if ($update == 1) {
-            // dd($request->all());
-            // dd($info_2);
             $u = array(
                 'group_id' => $group_id,
                 'keywords' => (!empty($request->keyword)) ? $request->keyword : '',
+                'fieldname' => (!empty($request->fieldname)) ? $request->fieldname : '',
                 'reply' => $request->msg,
-                // 'is_name' => $request->name ?? '0',
-                // 'is_empress' => $request->empress  ?? '0',
-                // 'is_dob'=> $request->dob  ?? '0',
-                // 'next' => '0',
                 'tmp_type' => $request->tmp_type ?? '',
                 'main_msg' => $request->main_msg ?? '',
                 'delay' => $request->delay ?? 3
@@ -504,13 +498,10 @@ class DashboardController extends Controller
                 'group_id' => $group_id,
                 'flow_id' => $next_flow_id + 1,
                 'keywords' => (!empty($request->keyword)) ? $request->keyword : '',
+                'fieldname' => $request->fieldname ?? '',
                 'reply' => $request->msg,
-                // 'is_name' => $request->name ?? '0',
-                // 'is_empress' => $request->empress  ?? '0',
-                // 'is_dob'=> $request->dob  ?? '0',
                 'next' => 0,
                 'tmp_type' => $request->tmp_type ?? '',
-                // 'auto_flow' => (isset($request->actions) && $request->auto_flow != null && $request->actions != 0) ? $request->auto_flow : "",
                 'auto_flow' => "",
                 'main_msg' => $request->main_msg ?? '',
                 'delay' => $request->delay ?? 3

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\GroupAdmin;
 use App\Http\Controllers\Controller;
 use App\Models\Flow;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
 class FlowController extends Controller
@@ -22,6 +23,7 @@ class FlowController extends Controller
 
         // Extract the relevant data (keyword, template, delay...) for each item in the JSON object.
         $dataToSave = [];
+        DB::connection('mysql2')->table('flows')->where('group_id', $group_id)->delete();
 
         foreach($data['Home']['data'] as $node) {
             $record = new Flow;
@@ -31,9 +33,9 @@ class FlowController extends Controller
             $record->next = '';
             $record->tmp_type = 1;
             $record->auto_flow = '';
-            $record->reply = $node['data']['message'];
-            $record->image_link = $node['data']['imagepath'];
-            $record->delay = $node['data']['delay'];
+            $record->reply = $node['data']['message'] ?? '';
+            $record->image_link = $node['data']['imagepath'] ?? '';
+            $record->delay = $node['data']['delay'] ?? 3;
             $record->save(); // this will auto-generate the ID for the record
 
             if (empty($node['outputs']['output_1']['connections'])) {
