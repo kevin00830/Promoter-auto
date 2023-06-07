@@ -68,6 +68,9 @@
             <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
                 <div class="wrapper">
                     <div class="col">
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="menublock">
+                            <i class="fas fa-file-alt" style="width: 10px;"></i><span>&nbsp; Menu</span>
+                        </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
                             <i class="fas fa-file-alt" style="width: 10px;"></i><span>&nbsp; Generic Template</span>
                         </div>
@@ -353,6 +356,22 @@
 
 
         switch (name) {
+
+            case 'menublock':
+                var menublock = `
+            <div>
+              <div class="title-box">Menu</div>
+              <div class="box">
+                <input id="keyword" type="text" placeholder="keyword" df-keyword required>
+                <textarea df-message></textarea>
+                <input id="delay" type="number" min="1" max="20" placeholder="delay" df-delay>
+                <input type="file" df-imagepath>
+              </div>
+            </div>
+            `;
+                editor.addNode('menublock', 1, 1, pos_x, pos_y, 'menublock', {}, menublock );
+                break;
+
             case 'template':
                 var template = `
             <div>
