@@ -17,6 +17,13 @@ class FlowController extends Controller
         return view('groupadmin.dashboard.flowbuilder');
     }
 
+    public function uploadImage(Request $request)
+    {
+        $group_id =auth()->user()->id;
+        $imageName = time().'.'.$request->image->extension();
+        $request->image->move(public_path('image_test/'. $group_id), $imageName);
+    }
+
     public function addFlow(Request $request)
     {
         $data = json_decode($request->getContent(), true);
@@ -28,6 +35,13 @@ class FlowController extends Controller
 
         // save data
         foreach($data['Home']['data'] as $node) {
+
+            if($node['data']['imagepath']) {
+                $imagepath = extractFilename($node['data']['imagepath']);
+            } else {
+                $imagepath = '';
+            }
+
             $record = new Flow;
             $record->flow_id = $node['id'];
             $record->group_id = $group_id;
@@ -36,7 +50,7 @@ class FlowController extends Controller
             $record->tmp_type = 1;
             $record->auto_flow = '';
             $record->reply = $node['data']['message'] ?? '';
-            $record->image_link = $node['data']['imagepath'] ?? '';
+            $record->image_link = $imagepath;
             $record->delay = $node['data']['delay'] ?? 3;
             $record->save(); // this will auto-generate the ID for the record
 
@@ -88,4 +102,22 @@ class FlowController extends Controller
         $importData = File::get(public_path('flow-json/'. $data));
         return response()->json(['importData' => $importData]);
     }
+
+
+    function extractFilename($path) {
+//    customize image path
+        if (substr($path, 0, 12) == "C:\\fakepath\\") {
+            return substr($path, 12); // modern browser
+        }
+        $x = strrpos($path, '/');
+        if ($x !== false) { // Unix-based path
+            return substr($path, $x + 1);
+        }
+        $x = strrpos($path, '\\');
+        if ($x !== false) { // Windows-based path
+            return substr($path, $x + 1);
+        }
+        return $path; // just the filename
+    }
+
 }

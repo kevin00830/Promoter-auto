@@ -69,7 +69,7 @@
                 <div class="wrapper">
                     <div class="col">
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="menublock">
-                            <i class="fas fa-file-alt" style="width: 10px;"></i><span>&nbsp; Menu</span>
+                            <i class="fas fa-bars" style="width: 10px;"></i><span>&nbsp; Menu</span>
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
                             <i class="fas fa-file-alt" style="width: 10px;"></i><span>&nbsp; Generic Template</span>
@@ -111,14 +111,14 @@
                             <i class="fas fa-globe-americas" style="width: 10px;"></i><span>&nbsp; Ask for Country</span>
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="genricinput">
-                            <i class="fas fa-globe-americas" style="width: 10px;"></i><span>&nbsp; Generic Input</span>
+                            <i class="fas fa-edit" style="width: 10px;"></i><span>&nbsp; Generic Input</span>
                         </div>
                     </div>
                     <div class="col-right">
 
-                        <div class="btn-clear btn btn-primary btn-lg" onclick="editor.clearModuleSelected()">{{__('group.clear')}}</div>
+                        <div class="btn-clear btn btn-primary btn-lg" data-toggle="modal" data-target="#clearModal">{{__('group.clear')}}</div>
                         <input class="btn-import btn btn-primary btn-lg" type="button" name="importJson" onchange="importJson(this.value)" value="{{__('group.import')}}" data-toggle="modal" data-target="#importModal">
-                        <div class="btn-export btn btn-primary btn-lg" onclick="exportJson()" data-toggle="modal" data-target="#exportModal">{{__('group.export')}}</div>
+                        <div class="btn-export btn btn-primary btn-lg" data-toggle="modal" data-target="#exportModal">{{__('group.export')}}</div>
                         <div class="btn-save btn btn-primary btn-lg" data-toggle="modal" data-target="#saveModal">{{__('group.save')}}</div>
 
                         <div id="drawflow" ondrop="drop(event)" ondragover="allowDrop(event)">
@@ -163,12 +163,9 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                ...
-                            </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-primary" onclick="exportJson()">Save changes</button>
                             </div>
                         </div>
                     </div>
@@ -190,6 +187,24 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Clear Buton Modal -->
+                <div class="modal fade" id="clearModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">{{__('group.clear_modal_msg')}}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick="editor.clearModuleSelected()" data-dismiss="modal">Clear All</button>
                             </div>
                         </div>
                     </div>
@@ -380,7 +395,7 @@
                 <input id="keyword" type="text" placeholder="keyword" df-keyword required>
                 <textarea df-message></textarea>
                 <input id="delay" type="number" min="1" max="20" placeholder="delay" df-delay>
-                <input type="file" df-imagepath>
+                <input type="file" name="image" id="inputImage" df-imagepath>
               </div>
             </div>
             `;
@@ -790,7 +805,7 @@
             contentType: 'application/json',
             data: JSON.stringify(editor.export()),
             success: function(data) {
-                alert('Data exported successfully.');
+                $('#exportModal').modal('hide');
             },
             error: function(xhr, status, error) {
                 console.error('Error:', error);

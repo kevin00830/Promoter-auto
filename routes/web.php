@@ -110,6 +110,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('addFlow', [FlowController::class, 'addFlow'])->name('groupadmin.addFlow');
     Route::post('exportJson', [FlowController::class, 'exportJson'])->name('groupadmin.exportJson');
     Route::post('importJson', [FlowController::class, 'importJson'])->name('groupadmin.importJson');
+    Route::post('uploadImage', [FlowController::class, 'uploadImage'])->name('groupadmin.uploadImage');
 });
 
 
