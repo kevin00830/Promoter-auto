@@ -113,6 +113,12 @@
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="genricinput">
                             <i class="fas fa-edit" style="width: 10px;"></i><span>&nbsp; Generic Input</span>
                         </div>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="zapier">
+                            <i class="fas fa-edit" style="width: 10px;"></i><span>&nbsp; Zapier Integration</span>
+                        </div>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="conditionalreply">
+                            <i class="fas fa-edit" style="width: 10px;"></i><span>&nbsp; Conditional Reply</span>
+                        </div>
                     </div>
                     <div class="col-right">
 
@@ -162,6 +168,9 @@
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
+                            </div>
+                            <div class="modal-body">
+                                <input id="exportJsonName" class="form-control" type="text" placeholder="Fill file name here...">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -234,7 +243,7 @@
 <script>var KTAppSettings = { "breakpoints": { "sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1200 }, "colors": { "theme": { "base": { "white": "#ffffff", "primary": "#6993FF", "secondary": "#E5EAEE", "success": "#1BC5BD", "info": "#8950FC", "warning": "#FFA800", "danger": "#F64E60", "light": "#F3F6F9", "dark": "#212121" }, "light": { "white": "#ffffff", "primary": "#E1E9FF", "secondary": "#ECF0F3", "success": "#C9F7F5", "info": "#EEE5FF", "warning": "#FFF4DE", "danger": "#FFE2E5", "light": "#F3F6F9", "dark": "#D6D6E0" }, "inverse": { "white": "#ffffff", "primary": "#ffffff", "secondary": "#212121", "success": "#ffffff", "info": "#ffffff", "warning": "#ffffff", "danger": "#ffffff", "light": "#464E5F", "dark": "#ffffff" } }, "gray": { "gray-100": "#F3F6F9", "gray-200": "#ECF0F3", "gray-300": "#E5EAEE", "gray-400": "#D6D6E0", "gray-500": "#B5B5C3", "gray-600": "#80808F", "gray-700": "#464E5F", "gray-800": "#1B283F", "gray-900": "#212121" } }, "font-family": "Poppins" };</script>
 <!-- Global Config -->
 <!-- Theme Bundle -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>--}}
 <script src="{{ asset('plugins/global') }}/plugins.bundle.js?v=1.0.0"></script>
 <script src="{{ asset('plugins') }}/prismjs/prismjs.bundle.js?v=1.0.0"></script>
 <script src="{{ asset('js') }}/scripts.bundle.js?v=1.0.0"></script>
@@ -254,8 +263,6 @@
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script>
 
     var id = document.getElementById("drawflow");
@@ -384,7 +391,7 @@
               </div>
             </div>
             `;
-                editor.addNode('menublock', 1, 1, pos_x, pos_y, 'menublock', {}, menublock );
+                editor.addNode('menublock', 1, 1, pos_x, pos_y, 'menublock', {'type' : '500'}, menublock );
                 break;
 
             case 'template':
@@ -395,11 +402,11 @@
                 <input id="keyword" type="text" placeholder="keyword" df-keyword required>
                 <textarea df-message></textarea>
                 <input id="delay" type="number" min="1" max="20" placeholder="delay" df-delay>
-                <input type="file" name="image" id="inputImage" df-imagepath>
+                <input type="file" name="file" id="file" onchange = "imageUpload(this.files)" df-imagepath>
               </div>
             </div>
             `;
-                editor.addNode('template', 1, 1, pos_x, pos_y, 'template', {}, template );
+                editor.addNode('template', 1, 1, pos_x, pos_y, 'template', {'type' : '1'}, template );
                 break;
 
             case 'audio':
@@ -412,7 +419,7 @@
               </div>
             </div>
             `;
-                editor.addNode('audio', 1, 1, pos_x, pos_y, 'audio', {}, audio );
+                editor.addNode('audio', 1, 1, pos_x, pos_y, 'audio', {'type' : '2'}, audio );
                 break;
 
             case 'name':
@@ -426,7 +433,7 @@
               </div>
             </div>
             `;
-                editor.addNode('name', 1, 1, pos_x, pos_y, 'name', {}, name );
+                editor.addNode('name', 1, 1, pos_x, pos_y, 'name', {'type' : '3'}, name );
                 break;
 
             case 'dob':
@@ -440,7 +447,7 @@
               </div>
             </div>
             `;
-                editor.addNode('dob', 1, 1, pos_x, pos_y, 'dob', {}, dob );
+                editor.addNode('dob', 1, 1, pos_x, pos_y, 'dob', {'type' : '4'}, dob );
                 break;
 
             case 'company':
@@ -454,7 +461,7 @@
               </div>
             </div>
             `;
-                editor.addNode('company', 1, 1, pos_x, pos_y, 'company', {}, company );
+                editor.addNode('company', 1, 1, pos_x, pos_y, 'company', {'type' : '5'}, company );
                 break;
 
             case 'email':
@@ -468,7 +475,7 @@
               </div>
             </div>
             `;
-                editor.addNode('email', 1, 1, pos_x, pos_y, 'email', {}, email );
+                editor.addNode('email', 1, 1, pos_x, pos_y, 'email', {'type' : '6'}, email );
                 break;
 
             case 'street':
@@ -482,7 +489,7 @@
               </div>
             </div>
             `;
-                editor.addNode('street', 1, 1, pos_x, pos_y, 'street', {}, street );
+                editor.addNode('street', 1, 1, pos_x, pos_y, 'street', {'type' : '7'}, street );
                 break;
 
             case 'number':
@@ -496,7 +503,7 @@
               </div>
             </div>
             `;
-                editor.addNode('number', 1, 1, pos_x, pos_y, 'number', {}, number );
+                editor.addNode('number', 1, 1, pos_x, pos_y, 'number', {'type' : '8'}, number );
                 break;
 
             case 'complement':
@@ -510,7 +517,7 @@
               </div>
             </div>
             `;
-                editor.addNode('complement', 1, 1, pos_x, pos_y, 'complement', {}, complement );
+                editor.addNode('complement', 1, 1, pos_x, pos_y, 'complement', {'type' : '9'}, complement );
                 break;
 
             case 'district':
@@ -524,7 +531,7 @@
               </div>
             </div>
             `;
-                editor.addNode('district', 1, 1, pos_x, pos_y, 'district', {}, district );
+                editor.addNode('district', 1, 1, pos_x, pos_y, 'district', {'type' : '10'}, district );
                 break;
 
             case 'zipcode':
@@ -538,7 +545,7 @@
               </div>
             </div>
             `;
-                editor.addNode('zipcode', 1, 1, pos_x, pos_y, 'zipcode', {}, zipcode );
+                editor.addNode('zipcode', 1, 1, pos_x, pos_y, 'zipcode', {'type' : '11'}, zipcode );
                 break;
 
             case 'city':
@@ -552,7 +559,7 @@
               </div>
             </div>
             `;
-                editor.addNode('city', 1, 1, pos_x, pos_y, 'city', {}, city );
+                editor.addNode('city', 1, 1, pos_x, pos_y, 'city', {'type' : '12'}, city );
                 break;
 
             case 'state':
@@ -566,7 +573,7 @@
               </div>
             </div>
             `;
-                editor.addNode('state', 1, 1, pos_x, pos_y, 'state', {}, state );
+                editor.addNode('state', 1, 1, pos_x, pos_y, 'state', {'type' : '13'}, state );
                 break;
 
             case 'country':
@@ -580,7 +587,7 @@
               </div>
             </div>
             `;
-                editor.addNode('country', 1, 1, pos_x, pos_y, 'country', {}, country );
+                editor.addNode('country', 1, 1, pos_x, pos_y, 'country', {'type' : '14'}, country );
                 break;
 
             case 'genricinput':
@@ -595,7 +602,66 @@
               </div>
             </div>
             `;
-                editor.addNode('genricInput', 1, 1, pos_x, pos_y, 'genricInput', {}, genricInput );
+                editor.addNode('genricInput', 1, 1, pos_x, pos_y, 'genricInput', {'type' : '1'}, genricInput );
+                break;
+
+            case 'zapier':
+                var zapier = `
+            <div>
+              <div class="title-box">Zapier integration</div>
+              <div class="box">
+                <input id="keyword" type="text" placeholder="keyword" df-keyword required>
+                <input type="text" placeholder="url" df-url required>
+                <textarea df-message></textarea>
+              </div>
+            </div>
+            `;
+                editor.addNode('zapier', 1, 1, pos_x, pos_y, 'zapier', {'type' : '200'}, zapier );
+                break;
+
+            case 'conditionalreply':
+                var conditionalreply = `
+            <div>
+              <div class="title-box">Conditional Reply</div>
+              <div class="box">
+                <input type="text" placeholder="keyword" df-keyword required>
+                <select class="form-control">
+                    <option value="">Select</option>
+                    <option value="1">Generic Template</option>
+                    <option value="2">Audio</option>
+                    <option value="3">Name</option>
+                    <option value="4">Dob</option>
+                    <option value="5">Company</option>
+                    <option value="6">Email</option>
+                    <option value="7">Street</option>
+                    <option value="8">Number</option>
+                    <option value="9">Complement</option>
+                    <option value="10">District</option>
+                    <option value="11">Zipcode</option>
+                    <option value="12">City</option>
+                    <option value="13">State</option>
+                    <option value="14">Country</option>
+                </select>
+                <div style="display: flex; justify-content: space-around;">
+                    <div>
+                      <input style="width: 10px; height: 10px" type="radio" id="huey" name="radio" value="huey"
+                             checked>
+                      <label for="huey">>=</label>
+                    </div>
+                    <div>
+                      <input style="width: 10px; height: 10px" type="radio" id="dewey" name="radio" value="dewey">
+                      <label for="dewey">=</label>
+                    </div>
+                    <div>
+                      <input style="width: 10px; height: 10px" type="radio" id="louie" name="radio" value="louie">
+                      <label for="louie"><=</label>
+                    </div>
+                </div>
+                <input type="text" placeholder="value">
+              </div>
+            </div>
+            `;
+                editor.addNode('conditionalreply', 1, 1, pos_x, pos_y, 'conditionalreply', {'type' : '1000'}, conditionalreply );
                 break;
 
             case 'facebook':
@@ -802,8 +868,11 @@
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             url: '{{ route('groupadmin.exportJson') }}',
             type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(editor.export()),
+            dataType: 'json',
+            data: {
+                'exportJsonName' : $('#exportJsonName').val(),
+                'data' : editor.export(),
+            },
             success: function(data) {
                 $('#exportModal').modal('hide');
             },
@@ -857,6 +926,44 @@
         });
     }
 
+    function imageUpload(e) {
+            var CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+            // Get the selected file
+            var files = e;
+
+            if(files.length > 0){
+                var fd = new FormData();
+
+                // Append data
+                fd.append('file',files[0]);
+                fd.append('_token',CSRF_TOKEN);
+
+                // Hide alert
+                $('#responseMsg').hide();
+
+                // AJAX request
+                $.ajax({
+                    url: "{{ route('groupadmin.uploadImage') }}",
+                    method: 'post',
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+                    success: function(response){
+                    },
+                    error: function(response){
+                        alert('File type is invalid.');
+                        console.log("error : " + JSON.stringify(response) );
+                    }
+                });
+            }else{
+                alert("Please select a file.");
+            }
+    }
 </script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 </body>
 </html>

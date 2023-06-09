@@ -11,46 +11,73 @@ use Illuminate\Support\Facades\File;
 
 class FlowController extends Controller
 {
-
+    // Show the flowbuilder view for creating and editing flows.
     public function flowbuilder(Request $request)
     {
         return view('groupadmin.dashboard.flowbuilder');
     }
 
+    // Upload image related to user id
     public function uploadImage(Request $request)
     {
-        $group_id =auth()->user()->id;
-        $imageName = time().'.'.$request->image->extension();
-        $request->image->move(public_path('image_test/'. $group_id), $imageName);
+        $request->validate([
+            'file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $file = $request->file('file');
+
+        $group_id = auth()->user()->id; // Get user group id
+//        $extension = $file->getClientOriginalExtension();
+//        $imageName = time().'.'.$extension; // create a unique file name for the image
+        $imageName = $file->getClientOriginalName();
+
+        $file->move(public_path('uploads/'. $group_id), $imageName); // move the image to the server folder
+
+        $returnName = 'uploads/'. $group_id. '/'. $imageName;
+        return response()->json(['fileName' => $returnName]);
     }
 
+    // Add flow data
     public function addFlow(Request $request)
     {
-        $data = json_decode($request->getContent(), true);
-        $group_id =auth()->user()->id;
+        $data = json_decode($request->getContent(), true); // decode the JSON payload sent by the front-end
+        $group_id =auth()->user()->id; // Get authenticated user group_id
 
-        //delete data by group_id in flow and menu_connections table.
+        // delete existing data by group_id in `flows` and `menu_connections` table.
         DB::connection('mysql2')->table('flows')->where('group_id', $group_id)->delete();
         DB::connection('mysql2')->table('menu_connections')->where('group_id', $group_id)->delete();
 
-        // save data
+        // save new data
         foreach($data['Home']['data'] as $node) {
 
-            if($node['data']['imagepath']) {
-                $imagepath = extractFilename($node['data']['imagepath']);
-            } else {
-                $imagepath = '';
+            // customize file path begin
+            $originPath = $node['data']['imagepath'] ?? '';
+            if (substr($originPath, 0, 12) == "C:\\fakepath\\") {
+                $customizedPath = substr($originPath, 12); // modern browser
             }
+            $x = strrpos($originPath, '/');
+            if ($x !== false) { // Unix-based path
+                $customizedPath = substr($originPath, $x + 1);
+            }
+            $x = strrpos($originPath, '\\');
+            if ($x !== false) { // Windows-based path
+                $customizedPath = substr($originPath, $x + 1);
+            }
+            if ($originPath == '') {
+                $customizedPath = '';
+            }
+            // customize file path end
+
 
             $record = new Flow;
             $record->flow_id = $node['id'];
             $record->group_id = $group_id;
             $record->keywords = $node['data']['keyword'];
             $record->next = '';
-            $record->tmp_type = 1;
+            $record->tmp_type = $node['data']['type'];
             $record->auto_flow = '';
             $record->reply = $node['data']['message'] ?? '';
-            $record->image_link = $imagepath;
+            $record->image_link = $customizedPath ? 'https://auto.notifire-api.com/uploads/'. $group_id .'/'. $customizedPath : '';
             $record->delay = $node['data']['delay'] ?? 3;
             $record->save(); // this will auto-generate the ID for the record
 
@@ -91,33 +118,15 @@ class FlowController extends Controller
 
     public function exportJson(Request $request)
     {
-        $data = json_decode($request->getContent(), true);
-        File::put(public_path('flow-json/test.json'), json_encode($data));
+        File::put(public_path("flow-json/{$request['exportJsonName']}.json"), json_encode($request['data'])); // write the JSON to a file on the server
         return response()->json(['message' => 'Data exported successfully']);
     }
 
     public function importJson(Request $request)
     {
-        $data = $request->getContent();
-        $importData = File::get(public_path('flow-json/'. $data));
+        $data = $request->getContent(); // get the file name of the JSON file from the request content
+        $importData = File::get(public_path('flow-json/'. $data)); // read the JSON file data from the server
         return response()->json(['importData' => $importData]);
-    }
-
-
-    function extractFilename($path) {
-//    customize image path
-        if (substr($path, 0, 12) == "C:\\fakepath\\") {
-            return substr($path, 12); // modern browser
-        }
-        $x = strrpos($path, '/');
-        if ($x !== false) { // Unix-based path
-            return substr($path, $x + 1);
-        }
-        $x = strrpos($path, '\\');
-        if ($x !== false) { // Windows-based path
-            return substr($path, $x + 1);
-        }
-        return $path; // just the filename
     }
 
 }
