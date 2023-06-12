@@ -4,6 +4,7 @@ namespace App\Http\Controllers\GroupAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Flow;
+use App\Models\FlowSavedPath;
 use App\Models\MenuConnection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +15,9 @@ class FlowController extends Controller
     // Show the flowbuilder view for creating and editing flows.
     public function flowbuilder(Request $request)
     {
-        return view('groupadmin.dashboard.flowbuilder');
+        $group_id =auth()->user()->id;
+        $flow_saved_path =  DB::connection('mysql2')->table('flow_saved_path')->where('group_id',$group_id)->get();
+        return view('groupadmin.dashboard.flowbuilder', compact('flow_saved_path'));
     }
 
     // Upload image related to user id
@@ -79,6 +82,7 @@ class FlowController extends Controller
             $record->reply = $node['data']['message'] ?? '';
             $record->image_link = $customizedPath ? 'https://auto.notifire-api.com/uploads/'. $group_id .'/'. $customizedPath : '';
             $record->delay = $node['data']['delay'] ?? 3;
+            $record->url = $node['data']['url'] ?? '';
             $record->save(); // this will auto-generate the ID for the record
 
             if(empty(($node['outputs']['output_1']['connections']))) {
@@ -94,14 +98,16 @@ class FlowController extends Controller
                 } else if(count($node['outputs']['output_1']['connections']) > 1) {
                     // if output connections are more than 1, set 'next' column to 0 and tmp_type to 500
                     $next = 0;
-                    $record->tmp_type = 500;
 
                     //save data in menu_connections table
                     foreach($node['outputs']['output_1']['connections'] as $menu_node) {
+
+                        $child_flow_id = $menu_node['node'];
                         $menu = new MenuConnection();
                         $menu->menu_flow_id = $node['id'];
                         $menu->group_id = $group_id;
-                        $menu->child_flow_id = $menu_node['node'];
+                        $menu->child_flow_id = $child_flow_id;
+                        $menu->keywords = $data['Home']['data'][$child_flow_id]['data']['keyword'];
                         $menu->save(); // this will auto-generate the ID for the record
                     }
                 }
@@ -118,14 +124,27 @@ class FlowController extends Controller
 
     public function exportJson(Request $request)
     {
-        File::put(public_path("flow-json/{$request['exportJsonName']}.json"), json_encode($request['data'])); // write the JSON to a file on the server
+        $group_id =auth()->user()->id; // Get authenticated user group_id
+        $fileName = $request['exportJsonName'];
+
+        File::put(public_path("uploads/{$group_id}/{$request['exportJsonName']}.json"), $request['data']); // write the JSON to a file on the server
+
+        $record = new FlowSavedPath;
+        $record->flow_name = $fileName;
+        $record->path = "https://auto.notifire-api.com/uploads/{$group_id}/{$fileName}.json";
+        $record->group_id = $group_id;
+        $record->save();
+
         return response()->json(['message' => 'Data exported successfully']);
     }
 
     public function importJson(Request $request)
     {
+        $group_id =auth()->user()->id; // Get authenticated user group_id
+
         $data = $request->getContent(); // get the file name of the JSON file from the request content
-        $importData = File::get(public_path('flow-json/'. $data)); // read the JSON file data from the server
+        $importData = File::get(public_path("uploads/{$group_id}/{$data}")); // read the JSON file data from the server
+//        return view('groupadmin.dashboard.flowbuilder', compact('importData'));
         return response()->json(['importData' => $importData]);
     }
 
