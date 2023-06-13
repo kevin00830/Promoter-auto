@@ -289,19 +289,21 @@
                 <!-- @TODO -->
                 <div class="col-lg-12 topdiv">
                     <div class="container-fluid">
-                        <a href="{{route('groupadmin.flowbuilder')}}" target="_blank" class="btn btn-primary btn-sm" style="float: right; position: absolute; right: 40px"> {{__('group.draw_flow')}}</a>
-                        <!--new box start-->
+                        <div style="text-align: center">
+                            <a href="{{route('groupadmin.flowbuilder')}}" target="_blank" class="btn btn-primary btn-lg" style="font-size: 30px">{{__('group.open_flow_builder')}}</a>
+                        </div><br><br>
+
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
 
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="customized-tab" data-toggle="tab" data-target="#customized" type="button" role="tab" aria-controls="customized" aria-selected="false">{{__('group.quick_setup')}}</button>
+                                <button class="nav-link" id="customized-tab" data-toggle="tab" data-target="#customized" type="button" role="tab" aria-controls="customized" aria-selected="false">{{__('group.webwithnobuttons')}}</button>
                             </li>
                         </ul>
 
                         <div class="tab-content" id="myTabContent">
 
-
                             <div class="tab-pane   fade show active" id="customized" role="tabpanel" aria-labelledby="customized-tab">
+
                                 <div class="form-box">
                                     <form action="{{route('clone_group')}}" method="post" enctype="multipart/form-data">
                                         @csrf
@@ -315,32 +317,14 @@
                                                     @endforeach
                                                 </select>
                                             </div>
+                                            <div class="col-md-6">
+                                                <button type="submit" class="btn btn-success">
+                                                    <i class="fas fa-save"></i>{{ __('group.buttom') }}
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div class="col-lg-12 col-md-12" style="display: flex;align-items: flex-end;justify-content: end;padding: 10px 0px;">
-                                            <button type="submit" class="btn btn-success">
-                                                <i class="fas fa-save"></i>{{ __('group.buttom') }}
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <!--new box end-->
+                                    </form><br><br><br><br>
 
-                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="customized-tab" data-toggle="tab" data-target="#customized" type="button" role="tab" aria-controls="customized" aria-selected="false">{{__('group.webwithnobuttons')}}</button>
-                            </li>
-                        </ul>
-
-                        <div class="tab-content" id="myTabContent">
-
-
-                            <div class="tab-pane   fade show active" id="customized" role="tabpanel" aria-labelledby="customized-tab">
-
-                                <div class="form-box">
                                     <form action="{{route('main_web_inte')}}" method="post" enctype="multipart/form-data">
                                         @csrf
                                         <div class="row padflex">
