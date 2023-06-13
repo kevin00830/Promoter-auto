@@ -282,9 +282,9 @@
     editor.reroute_fix_curvature = true;
     editor.force_first_input = false;
 
-    const dataToImport = {"drawflow":{"Home":{"data":{}}}};
+    const importData = {"drawflow": {"Home": {"data": {}}}}
     editor.start();
-    editor.import(dataToImport);
+    editor.import(importData);
 
     // Events!
     editor.on('nodeCreated', function(id) {
@@ -879,6 +879,7 @@
 
     }
 
+    // Save flow in DB
     function addFlowData() {
         if($('.keyword').val() == "") {
             alert("Please enter Keyword in the form, This is required");
@@ -905,6 +906,7 @@
         });
     }
 
+    // Export Flow to Json in server - path: public/uploads/{group_id}/{file name}
     function exportJson() {
         $.ajax({
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
@@ -949,9 +951,9 @@
             contentType: 'application/json',
             data: filename,
             success: function(res) {
-                var id = document.getElementById("drawflow");
-                const editor = new Drawflow(id);
                 editor.reroute = true;
+                editor.reroute_fix_curvature = true;
+                editor.force_first_input = false;
                 editor.start();
                 editor.import(JSON.parse(res.importData));
             },

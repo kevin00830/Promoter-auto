@@ -122,6 +122,7 @@ class FlowController extends Controller
         return response()->json(['message' => 'Data saved successfully']);
     }
 
+    // Export flow to Json in server
     public function exportJson(Request $request)
     {
         $group_id =auth()->user()->id; // Get authenticated user group_id
@@ -129,23 +130,24 @@ class FlowController extends Controller
 
         File::put(public_path("uploads/{$group_id}/{$request['exportJsonName']}.json"), $request['data']); // write the JSON to a file on the server
 
-        $record = new FlowSavedPath;
-        $record->flow_name = $fileName;
-        $record->path = "https://auto.notifire-api.com/uploads/{$group_id}/{$fileName}.json";
-        $record->group_id = $group_id;
-        $record->save();
+        $record = FlowSavedPath::firstOrCreate(
+            ['flow_name' => $fileName],
+            [
+                'path' => "https://auto.notifire-api.com/uploads/{$group_id}/{$fileName}.json",
+                'group_id' => $group_id,
+            ]
+        );
 
         return response()->json(['message' => 'Data exported successfully']);
     }
 
+    // Import Json from server
     public function importJson(Request $request)
     {
         $group_id =auth()->user()->id; // Get authenticated user group_id
 
         $data = $request->getContent(); // get the file name of the JSON file from the request content
         $importData = File::get(public_path("uploads/{$group_id}/{$data}")); // read the JSON file data from the server
-//        return view('groupadmin.dashboard.flowbuilder', compact('importData'));
         return response()->json(['importData' => $importData]);
     }
-
 }

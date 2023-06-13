@@ -11,4 +11,6 @@ class FlowSavedPath extends Model
 
     protected $connection = 'mysql2';
     protected $table = 'flow_saved_path';
+
+    protected $fillable = ['flow_name', 'path', 'group_id'];
 }
