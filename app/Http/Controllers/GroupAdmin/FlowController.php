@@ -17,7 +17,8 @@ class FlowController extends Controller
     {
         $group_id =auth()->user()->id;
         $flow_saved_path =  DB::connection('mysql2')->table('flow_saved_path')->where('group_id',$group_id)->get();
-        return view('groupadmin.dashboard.flowbuilder', compact('flow_saved_path'));
+        $fieldname = DB::connection('mysql2')->table('flows')->where('group_id',$group_id)->get();
+        return view('groupadmin.dashboard.flowbuilder', compact('flow_saved_path', 'fieldname'));
     }
 
     // Upload image related to user id

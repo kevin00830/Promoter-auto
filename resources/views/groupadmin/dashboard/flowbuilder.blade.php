@@ -68,14 +68,23 @@
             <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
                 <div class="wrapper">
                     <div class="col">
-                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="menublock">
-                            <i class="fas fa-bars" style="width: 10px;"></i><span>&nbsp; Menu</span>
-                        </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
                             <i class="fas fa-file-alt" style="width: 10px;"></i><span>&nbsp; Generic Template</span>
                         </div>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="menublock">
+                            <i class="fas fa-bars" style="width: 10px;"></i><span>&nbsp; Menu</span>
+                        </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="audio">
                             <i class="fas fa-volume-up" style="width: 10px;"></i><span>&nbsp; Audio</span>
+                        </div>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="genericinput">
+                            <i class="fas fa-edit" style="width: 10px;"></i><span>&nbsp; Generic Input</span>
+                        </div>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="zapier">
+                            <i class="fas fa-edit" style="width: 10px;"></i><span>&nbsp; Zapier Integration</span>
+                        </div>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="conditionalreply">
+                            <i class="fas fa-edit" style="width: 10px;"></i><span>&nbsp; Conditional Reply</span>
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="name">
                             <i class="fas fa-user" style="width: 10px;"></i><span>&nbsp; Ask for Name</span>
@@ -109,15 +118,6 @@
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="country">
                             <i class="fas fa-globe-americas" style="width: 10px;"></i><span>&nbsp; Ask for Country</span>
-                        </div>
-                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="genricinput">
-                            <i class="fas fa-edit" style="width: 10px;"></i><span>&nbsp; Generic Input</span>
-                        </div>
-                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="zapier">
-                            <i class="fas fa-edit" style="width: 10px;"></i><span>&nbsp; Zapier Integration</span>
-                        </div>
-                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="conditionalreply">
-                            <i class="fas fa-edit" style="width: 10px;"></i><span>&nbsp; Conditional Reply</span>
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="cnpj">
                             <i class="fas fa-edit" style="width: 10px;"></i><span>&nbsp; cnpj</span>
@@ -398,7 +398,7 @@
                 <input calss="keyword" type="text" placeholder="keyword" df-keyword required>
                 <textarea df-message></textarea>
                 <input id="delay" type="number" min="1" max="20" placeholder="delay" df-delay>
-                <input type="file" name="file" id="file" onchange = "imageUpload(this.files)">
+                <input type="file" name="file" id="file" onchange = "imageUpload(this.files)" accept="image/png, image/jpeg">
               </div>
             </div>
             `;
@@ -413,7 +413,7 @@
                 <input class="keyword" type="text" placeholder="keyword" df-keyword required>
                 <textarea df-message></textarea>
                 <input id="delay" type="number" min="1" max="20" placeholder="delay" df-delay>
-                <input type="file" name="file" id="file" onchange = "imageUpload(this.files)">
+                <input type="file" name="file" id="file" onchange = "imageUpload(this.files)" accept="image/png, image/jpeg">
               </div>
             </div>
             `;
@@ -427,6 +427,7 @@
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <input type="number" min="1" max="20" placeholder="delay" df-delay>
+                <input type="file" name="file" id="file" onchange = "imageUpload(this.files)">
               </div>
             </div>
             `;
@@ -601,8 +602,8 @@
                 editor.addNode('country', 1, 1, pos_x, pos_y, 'country', {'type' : '14'}, country );
                 break;
 
-            case 'genricinput':
-                var genricInput = `
+            case 'genericinput':
+                var genericinput = `
             <div>
               <div class="title-box">Generic Input</div>
               <div class="box">
@@ -613,7 +614,7 @@
               </div>
             </div>
             `;
-                editor.addNode('genricInput', 1, 1, pos_x, pos_y, 'genricInput', {'type' : '1'}, genricInput );
+                editor.addNode('genericinput', 1, 1, pos_x, pos_y, 'genericinput', {'type' : '100'}, genericinput );
                 break;
 
             case 'zapier':
@@ -638,20 +639,12 @@
                 <input type="text" placeholder="keyword" df-keyword required>
                 <select class="form-control">
                     <option value="">Select</option>
-                    <option value="1">Generic Template</option>
-                    <option value="2">Audio</option>
-                    <option value="3">Name</option>
-                    <option value="4">Dob</option>
-                    <option value="5">Company</option>
-                    <option value="6">Email</option>
-                    <option value="7">Street</option>
-                    <option value="8">Number</option>
-                    <option value="9">Complement</option>
-                    <option value="10">District</option>
-                    <option value="11">Zipcode</option>
-                    <option value="12">City</option>
-                    <option value="13">State</option>
-                    <option value="14">Country</option>
+                    @foreach($fieldname as $fn)
+                        @if($fn->fieldname)
+                            <option value="{{$fn->id}}">{{$fn->fieldname}}</option>
+                        @endif
+                    @endforeach
+
                 </select>
                 <div style="display: flex; justify-content: space-around;">
                     <div>
@@ -672,7 +665,7 @@
               </div>
             </div>
             `;
-                editor.addNode('conditionalreply', 1, 1, pos_x, pos_y, 'conditionalreply', {'type' : '1000'}, conditionalreply );
+                editor.addNode('conditionalreply', 1, 2, pos_x, pos_y, 'conditionalreply', {'type' : '1000'}, conditionalreply );
                 break;
 
             case 'cnpj':

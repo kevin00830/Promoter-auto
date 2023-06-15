@@ -290,7 +290,7 @@
                 <div class="col-lg-12 topdiv">
                     <div class="container-fluid">
                         <div style="text-align: center">
-                            <a href="{{route('groupadmin.flowbuilder')}}" target="_blank" class="btn btn-primary btn-lg" style="font-size: 30px">{{__('group.open_flow_builder')}}</a>
+                            <a href="{{route('groupadmin.flowbuilder')}}" target="_blank" class="btn btn-primary btn-lg" style="padding: 10px 50px">{{__('group.open_flow_builder')}}</a>
                         </div><br><br>
 
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
