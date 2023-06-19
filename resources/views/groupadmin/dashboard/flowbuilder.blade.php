@@ -23,8 +23,8 @@
 
     {{--    extern css files--}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jerosoler/Drawflow/dist/drawflow.min.css">
-    <script src="https://cdn.jsdelivr.net/gh/jerosoler/Drawflow/dist/drawflow.min.js"></script>
-    <script src="dist/drawflow.min.js"></script>
+{{--    <script src="https://cdn.jsdelivr.net/gh/jerosoler/Drawflow/dist/drawflow.min.js"></script>--}}
+    <script src="dist/drawflow.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="src/drawflow.css" />
     <link rel="stylesheet" type="text/css" href="docs/beautiful.css" />
@@ -69,68 +69,71 @@
                 <div class="wrapper">
                     <div class="col">
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="template">
-                            <i class="fas fa-file-alt" style="width: 10px;"></i><span>&nbsp; Generic Template</span>
+                            <i class="fas fa-file-alt" style="width: 10px;"></i><span>&nbsp; {{__('group.generic_template')}}</span>
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="menublock">
-                            <i class="fas fa-bars" style="width: 10px;"></i><span>&nbsp; Menu</span>
+                            <i class="fas fa-bars" style="width: 10px;"></i><span>&nbsp; {{__('group.menu')}}</span>
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="audio">
-                            <i class="fas fa-volume-up" style="width: 10px;"></i><span>&nbsp; Audio</span>
+                            <i class="fas fa-volume-up" style="width: 10px;"></i><span>&nbsp; {{__('group.audio')}}</span>
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="genericinput">
-                            <i class="fas fa-edit" style="width: 10px;"></i><span>&nbsp; Generic Input</span>
+                            <i class="fas fa-edit" style="width: 10px;"></i><span>&nbsp; {{__('group.generic_input')}}</span>
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="zapier">
-                            <i class="fas fa-edit" style="width: 10px;"></i><span>&nbsp; Zapier Integration</span>
+                            <i class="fas fa-edit" style="width: 10px;"></i><span>&nbsp; {{__('group.zapier_integration')}}</span>
                         </div>
-                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="conditionalreply">
-                            <i class="fas fa-edit" style="width: 10px;"></i><span>&nbsp; Conditional Reply</span>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="conCusField">
+                            <i class="fas fa-edit" style="width: 10px;"></i><span>&nbsp; {{__('group.cond_custom_fields')}}</span>
+                        </div>
+                        <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="conSysField">
+                            <i class="fas fa-edit" style="width: 10px;"></i><span>&nbsp; {{__('group.cond_system_fields')}}</span>
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="name">
-                            <i class="fas fa-user" style="width: 10px;"></i><span>&nbsp; Ask for Name</span>
+                            <i class="fas fa-user" style="width: 10px;"></i><span>&nbsp; {{__('group.ask_for_name')}}</span>
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="dob">
-                            <i class="fas fa-calendar-alt" style="width: 10px;"></i><span>&nbsp; Ask for dob (dd-mm)</span>
+                            <i class="fas fa-calendar-alt" style="width: 10px;"></i><span>&nbsp; {{__('group.ask_for_dob')}}</span>
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="company">
-                            <i class="fas fa-building" style="width: 10px;"></i><span>&nbsp; Ask for Company</span>
+                            <i class="fas fa-building" style="width: 10px;"></i><span>&nbsp; {{__('group.ask_for_company')}}</span>
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="email">
-                            <i class="far fa-envelope" style="width: 10px;"></i><span>&nbsp; Ask for Email</span>
+                            <i class="far fa-envelope" style="width: 10px;"></i><span>&nbsp; {{__('group.ask_for_email')}}</span>
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="street">
-                            <i class="fas fa-map-marker-alt" style="width: 10px;"></i><span>&nbsp; Ask for Street</span>
+                            <i class="fas fa-map-marker-alt" style="width: 10px;"></i><span>&nbsp; {{__('group.ask_for_street')}}</span>
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="number">
-                            <i class="fas fa-sort-numeric-up" style="width: 10px;"></i><span>&nbsp; Ask for Number</span>
+                            <i class="fas fa-sort-numeric-up" style="width: 10px;"></i><span>&nbsp; {{__('group.ask_for_number')}}</span>
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="complement">
-                            <i class="fas fa-thumbtack" style="width: 10px;"></i><span>&nbsp; Ask for Complement</span>
+                            <i class="fas fa-thumbtack" style="width: 10px;"></i><span>&nbsp; {{__('group.ask_for_complement')}}</span>
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="district">
-                            <i class="fas fa-road" style="width: 10px;"></i><span>&nbsp; Ask for District</span>
+                            <i class="fas fa-road" style="width: 10px;"></i><span>&nbsp; {{__('group.ask_for_district')}}</span>
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="zipcode">
-                            <i class="fas fa-map-pin" style="width: 10px;"></i><span>&nbsp; Ask for ZipCode</span>
+                            <i class="fas fa-map-pin" style="width: 10px;"></i><span>&nbsp; {{__('group.ask_for_zipcode')}}</span>
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="city">
-                            <i class="fas fa-city" style="width: 10px;"></i><span>&nbsp; Ask for City</span>
+                            <i class="fas fa-city" style="width: 10px;"></i><span>&nbsp; {{__('group.ask_for_city')}}</span>
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="country">
-                            <i class="fas fa-globe-americas" style="width: 10px;"></i><span>&nbsp; Ask for Country</span>
+                            <i class="fas fa-globe-americas" style="width: 10px;"></i><span>&nbsp; {{__('group.ask_for_country')}}</span>
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="cnpj">
-                            <i class="fas fa-edit" style="width: 10px;"></i><span>&nbsp; cnpj</span>
+                            <i class="fas fa-edit" style="width: 10px;"></i><span>&nbsp; {{__('group.ask_cnpj')}}</span>
                         </div>
                         <div class="drag-drawflow" draggable="true" ondragstart="drag(event)" data-node="cpf">
-                            <i class="fas fa-edit" style="width: 10px;"></i><span>&nbsp; cpf</span>
+                            <i class="fas fa-edit" style="width: 10px;"></i><span>&nbsp; {{__('group.ask_cpf')}}</span>
                         </div>
                     </div>
                     <div class="col-right">
 
                         <div class="btn-clear btn btn-primary btn-lg" data-toggle="modal" data-target="#clearModal">{{__('group.clear')}}</div>
                         <input class="btn-import btn btn-primary btn-lg" type="button" value="{{__('group.import')}}"  data-toggle="modal" data-target="#importModal">
-                        <div class="btn-export btn btn-primary btn-lg" onclick="console.log(JSON.stringify(editor.export()))" data-toggle="modal" data-target="#exportModal">{{__('group.export')}}</div>
+                        <div class="btn-export btn btn-primary btn-lg" data-toggle="modal" data-target="#exportModal">{{__('group.export')}}</div>
                         <div class="btn-save btn btn-primary btn-lg" data-toggle="modal" data-target="#saveModal">{{__('group.save')}}</div>
 
                         <div id="drawflow" ondrop="drop(event)" ondragover="allowDrop(event)">
@@ -200,7 +203,7 @@
                                 <select id="import" class="form-control">
                                     <option value="">Select</option>
                                     @foreach($flow_saved_path as $path)
-                                        <option value="{{$path->path}}">{{$path->flow_name}}</option>
+                                        <option value="{{$path->flow_name}}">{{$path->flow_name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -393,7 +396,7 @@
             case 'menublock':
                 var menublock = `
             <div>
-              <div class="title-box">Menu</div>
+              <div class="title-box">{{__('group.menu')}}</div>
               <div class="box">
                 <input calss="keyword" type="text" placeholder="keyword" df-keyword required>
                 <textarea df-message></textarea>
@@ -408,7 +411,7 @@
             case 'template':
                 var template = `
             <div>
-              <div class="title-box">Generic Template</div>
+              <div class="title-box">{{__('group.generic_template')}}</div>
               <div class="box">
                 <input class="keyword" type="text" placeholder="keyword" df-keyword required>
                 <textarea df-message></textarea>
@@ -423,7 +426,7 @@
             case 'audio':
                 var audio = `
             <div>
-              <div class="title-box">Audio</div>
+              <div class="title-box">{{__('group.audio')}}</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <input type="number" min="1" max="20" placeholder="delay" df-delay>
@@ -437,7 +440,7 @@
             case 'name':
                 var name = `
             <div>
-              <div class="title-box">Ask for Name</div>
+              <div class="title-box">{{__('group.ask_for_name')}}</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
@@ -451,7 +454,7 @@
             case 'dob':
                 var dob = `
             <div>
-              <div class="title-box">Ask for dob (dd-mm)</div>
+              <div class="title-box">{{__('group.ask_for_dob')}}</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
@@ -465,7 +468,7 @@
             case 'company':
                 var company = `
             <div>
-              <div class="title-box">Ask for Company</div>
+              <div class="title-box">{{__('group.ask_for_company')}}</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
@@ -479,7 +482,7 @@
             case 'email':
                 var email = `
             <div>
-              <div class="title-box">Ask for Email</div>
+              <div class="title-box">{{__('group.ask_for_email')}}</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
@@ -493,7 +496,7 @@
             case 'street':
                 var street = `
             <div>
-              <div class="title-box">Ask for Street</div>
+              <div class="title-box">{{__('group.ask_for_street')}}</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
@@ -507,7 +510,7 @@
             case 'number':
                 var number = `
             <div>
-              <div class="title-box">Ask for Number</div>
+              <div class="title-box">{{__('group.ask_for_number')}}</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
@@ -521,7 +524,7 @@
             case 'complement':
                 var complement = `
             <div>
-              <div class="title-box">Ask for Complement</div>
+              <div class="title-box">{{__('group.ask_for_complement')}}</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
@@ -535,7 +538,7 @@
             case 'district':
                 var district = `
             <div>
-              <div class="title-box">Ask for District</div>
+              <div class="title-box">{{__('group.ask_for_district')}}</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
@@ -549,7 +552,7 @@
             case 'zipcode':
                 var zipcode = `
             <div>
-              <div class="title-box">Ask for ZipCode</div>
+              <div class="title-box">{{__('group.ask_for_zipcode')}}</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
@@ -563,7 +566,7 @@
             case 'city':
                 var city = `
             <div>
-              <div class="title-box">Ask for City</div>
+              <div class="title-box">{{__('group.ask_for_city')}}</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
@@ -575,9 +578,9 @@
                 break;
 
             case 'state':
-                var zipcode = `
+                var state = `
             <div>
-              <div class="title-box">Ask for State</div>
+              <div class="title-box">{{__('group.ask_for_state')}}</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
@@ -591,7 +594,7 @@
             case 'country':
                 var country = `
             <div>
-              <div class="title-box">Ask for Country</div>
+              <div class="title-box">{{__('group.ask_for_country')}}</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <textarea df-message></textarea>
@@ -605,7 +608,7 @@
             case 'genericinput':
                 var genericinput = `
             <div>
-              <div class="title-box">Generic Input</div>
+              <div class="title-box">{{__('group.generic_input')}}</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword>
                 <input type="text" placeholder="Field name" df-fieldname>
@@ -620,7 +623,7 @@
             case 'zapier':
                 var zapier = `
             <div>
-              <div class="title-box">Zapier integration</div>
+              <div class="title-box">{{__('group.zapier_integration')}}</div>
               <div class="box">
                 <input class="keyword" type="text" placeholder="keyword" df-keyword required>
                 <input class="zapier-url" type="text" placeholder="url" df-url required>
@@ -631,47 +634,68 @@
                 editor.addNode('zapier', 1, 1, pos_x, pos_y, 'zapier', {'type' : '200'}, zapier );
                 break;
 
-            case 'conditionalreply':
-                var conditionalreply = `
+            case 'conCusField':
+                var conCusField = `
             <div>
-              <div class="title-box">Conditional Reply</div>
+              <div class="title-box">{{__('group.cond_custom_fields')}}</div>
               <div class="box">
                 <input type="text" placeholder="keyword" df-keyword required>
                 <select class="form-control">
                     <option value="">Select</option>
-                    @foreach($fieldname as $fn)
-                        @if($fn->fieldname)
-                            <option value="{{$fn->id}}">{{$fn->fieldname}}</option>
-                        @endif
-                    @endforeach
-
+                    <option value="text">Text</option>
+                    <option value="numeric">Numeric</option>
                 </select>
-                <div style="display: flex; justify-content: space-around;">
-                    <div>
-                      <input style="width: 10px; height: 10px" type="radio" id="huey" name="radio" value="huey"
-                             checked>
-                      <label for="huey">>=</label>
-                    </div>
-                    <div>
-                      <input style="width: 10px; height: 10px" type="radio" id="dewey" name="radio" value="dewey">
-                      <label for="dewey">=</label>
-                    </div>
-                    <div>
-                      <input style="width: 10px; height: 10px" type="radio" id="louie" name="radio" value="louie">
-                      <label for="louie"><=</label>
-                    </div>
-                </div>
-                <input type="text" placeholder="value">
+                <select class="form-control" df-condopt>
+                    <option value="">Select</option>
+                    <option value="1">>=</option>
+                    <option value="2">=</option>
+                    <option value="3">=<</option>
+                </select>
+                <input type="text" placeholder="value" df-condval>
               </div>
             </div>
             `;
-                editor.addNode('conditionalreply', 1, 2, pos_x, pos_y, 'conditionalreply', {'type' : '1000'}, conditionalreply );
+                editor.addNode('conCusField', 1, 2, pos_x, pos_y, 'conCusField', {'type' : '1000'}, conCusField );
+                break;
+
+            case 'conSysField':
+                var conSysField = `
+            <div>
+              <div class="title-box">{{__('group.cond_system_fields')}}</div>
+              <div class="box">
+                <input type="text" placeholder="keyword" df-keyword required>
+                <select class="form-control">
+                    <option value="">Select</option>
+                    <option value="3">Name</option>
+                    <option value="4">Dob</option>
+                    <option value="5">Company</option>
+                    <option value="6">Email</option>
+                    <option value="7">Street</option>
+                    <option value="8">Number</option>
+                    <option value="9">Complement</option>
+                    <option value="10">District</option>
+                    <option value="11">Zipcode</option>
+                    <option value="12">City</option>
+                    <option value="13">State</option>
+                    <option value="14">Country</option>
+                </select>
+                <select class="form-control">
+                    <option value="">Select</option>
+                    <option value="1">>=</option>
+                    <option value="2">=</option>
+                    <option value="3">=<</option>
+                </select>
+                <input type="text" placeholder="value" df-condval>
+              </div>
+            </div>
+            `;
+                editor.addNode('conSysField', 1, 2, pos_x, pos_y, 'conSysField', {'type' : '1000'}, conSysField );
                 break;
 
             case 'cnpj':
                 var cnpj = `
             <div>
-              <div class="title-box">cnpj</div>
+              <div class="title-box">{{__('group.ask_cnpj')}}</div>
               <div class="box">
                 <input class="keyword" type="text" placeholder="keyword" df-keyword required>
                 <textarea df-message></textarea>
@@ -685,7 +709,7 @@
             case 'cpf':
                 var cpf = `
             <div>
-              <div class="title-box">cpf</div>
+              <div class="title-box">{{__('group.ask_cpf')}}</div>
               <div class="box">
                 <input class="keyword" type="text" placeholder="keyword" df-keyword required>
                 <textarea df-message></textarea>
@@ -901,13 +925,16 @@
 
     // Export Flow to Json in server - path: public/uploads/{group_id}/{file name}
     function exportJson() {
+
+        var exportJsonName = ($('#import').val() !== "") ? $('#import').val() : $('#exportJsonName').val();
+
         $.ajax({
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             url: '{{ route('groupadmin.exportJson') }}',
             type: 'POST',
             dataType: 'json',
             data: {
-                'exportJsonName' : $('#exportJsonName').val(),
+                'exportJsonName' : exportJsonName,
                 'data' : JSON.stringify(editor.export()),
             },
             success: function(data) {
@@ -919,24 +946,11 @@
         });
     }
 
-    // Customize image path - get only image name
-    function extractFilename(path) {
-        if (path.substr(0, 12) == "C:\\fakepath\\")
-            return path.substr(12); // modern browser
-        var x;
-        x = path.lastIndexOf('/');
-        if (x >= 0) // Unix-based path
-            return path.substr(x+1);
-        x = path.lastIndexOf('\\');
-        if (x >= 0) // Windows-based path
-            return path.substr(x+1);
-        return path; // just the filename
-    }
-
     // Import Json from server
     function importJson() {
+        var filename = $('#import').val() + '.json';
 
-        var filename = extractFilename($('#import').val());
+        console.log(filename);
         $.ajax({
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             url: '{{ route('groupadmin.importJson') }}',
@@ -954,42 +968,45 @@
                 console.error('Error:', error);
             }
         });
+        $('#exportJsonName').val($('#import').val());
     }
 
     // Upload image to server - path: public/uploads/{group_id}/{file name}
     function imageUpload(e) {
-            var CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
-            // Get the selected file
-            var files = e;
+        var CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+        // Get the selected file
+        var files = e;
+        console.log(files[0]['name']);
 
-            if(files.length > 0){
-                var fd = new FormData();
+        if(files.length > 0){
+            var fd = new FormData();
 
-                // Append data
-                fd.append('file',files[0]);
-                fd.append('_token',CSRF_TOKEN);
+            // Append data
+            fd.append('file',files[0]);
+            fd.append('_token',CSRF_TOKEN);
 
-                // Hide alert
-                $('#responseMsg').hide();
+            // Hide alert
+            $('#responseMsg').hide();
 
-                // AJAX request
-                $.ajax({
-                    url: "{{ route('groupadmin.uploadImage') }}",
-                    method: 'post',
-                    data: fd,
-                    contentType: false,
-                    processData: false,
-                    dataType: 'json',
-                    success: function(response){
-                    },
-                    error: function(response){
-                        alert('File type is invalid.');
-                        console.log("error : " + JSON.stringify(response) );
-                    }
-                });
-            }else{
-                alert("Please select a file.");
-            }
+            // AJAX request
+            $.ajax({
+                url: "{{ route('groupadmin.uploadImage') }}",
+                method: 'post',
+                data: fd,
+                contentType: false,
+                processData: false,
+                dataType: 'json',
+                success: function(response){
+
+                },
+                error: function(response){
+                    alert('File type is invalid.');
+                    console.log("error : " + JSON.stringify(response) );
+                }
+            });
+        }else{
+            alert("Please select a file.");
+        }
     }
 </script>
 

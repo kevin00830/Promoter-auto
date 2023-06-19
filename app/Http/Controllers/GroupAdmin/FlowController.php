@@ -56,6 +56,7 @@ class FlowController extends Controller
 
             // customize file path begin
             $originPath = $node['data']['imagepath'] ?? '';
+            dd($originPath);
             if (substr($originPath, 0, 12) == "C:\\fakepath\\") {
                 $customizedPath = substr($originPath, 12); // modern browser
             }
@@ -77,6 +78,7 @@ class FlowController extends Controller
             $record->flow_id = $node['id'];
             $record->group_id = $group_id;
             $record->keywords = $node['data']['keyword'];
+            $record->fieldname = $node['data']['fieldname'] ?? '';
             $record->next = '';
             $record->tmp_type = $node['data']['type'];
             $record->auto_flow = '';
@@ -90,7 +92,7 @@ class FlowController extends Controller
                 // if output connections are null, set 'next' column to 0
                 $next = 0;
             } else {
-                if (count($node['outputs']['output_1']['connections']) == 1) {
+                if (count($node['outputs']['output_1']['connections']) == 1 && count($node['outputs']) == 1) {
                     // if output connections exist, set 'next' column to 1
                     $next = 1;
 
@@ -111,6 +113,18 @@ class FlowController extends Controller
                         $menu->keywords = $data['Home']['data'][$child_flow_id]['data']['keyword'];
                         $menu->save(); // this will auto-generate the ID for the record
                     }
+                } else {
+                    $next = 0;
+                }
+
+                // set cond for conditional reply
+                if($node['data']['type'] == 1000) {
+                    $previous_flow_id = $node['id'] - 1;
+                    $record->fieldname = $data['Home']['data'][$previous_flow_id]['data']['fieldname'];
+                    $record->cond_opt = $node['data']['condopt'];
+                    $record->reply = $node['data']['condval'];
+                    $record->cond_true = $node['outputs']['output_1']['connections'][0]['node'];
+                    $record->cond_false = $node['outputs']['output_2']['connections'][0]['node'];
                 }
             }
 
