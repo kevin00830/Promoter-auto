@@ -1,4 +1,4 @@
-# Wi5
+# FlowBuilder
 
 `composer install`
 `php artisan key:generate`
